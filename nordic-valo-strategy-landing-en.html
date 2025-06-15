@@ -58,6 +58,76 @@
             }
         }
 
+        /* Touch Swipe Styles */
+        .swipeable {
+            overflow-x: hidden;
+            position: relative;
+            cursor: grab;
+        }
+        
+        .swipeable:active {
+            cursor: grabbing;
+        }
+        
+        .swipe-indicator {
+            text-align: center;
+            color: rgba(148, 163, 184, 0.8);
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            animation: swipePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes swipePulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.02); }
+        }
+        
+        .swipe-progress {
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #60a5fa);
+            border-radius: 2px;
+            margin-top: 1rem;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+        }
+        
+        /* Enhanced mobile grid layouts for swipe */
+        @media (max-width: 768px) {
+            .modules-grid,
+            .pricing-grid,
+            .solutions-grid,
+            .benefits-grid {
+                display: flex;
+                flex-wrap: nowrap;
+                gap: 1rem;
+                padding: 0 1rem;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .module-card,
+            .pricing-card,
+            .solution-card,
+            .benefit-item {
+                flex: 0 0 280px;
+                scroll-snap-align: start;
+                touch-action: pan-y;
+            }
+            
+            /* Ensure cards maintain their styling during swipe */
+            .swipeable .module-card,
+            .swipeable .pricing-card,
+            .swipeable .solution-card,
+            .swipeable .benefit-item {
+                transition: transform 0.2s ease-out;
+                will-change: transform;
+            }
+        }
+
         /* Low-performance device detection and optimization */
         @supports not (backdrop-filter: blur(1px)) {
             /* Fallback for devices that don't support backdrop-filter */
@@ -5389,6 +5459,236 @@
             }
         });
     </script>
+
+    <!-- Touch Swipe Functionality -->
+    <script>
+        // Touch swipe functionality for mobile
+        class TouchSwipeHandler {
+            constructor() {
+                this.startX = 0;
+                this.startY = 0;
+                this.currentX = 0;
+                this.currentY = 0;
+                this.isDragging = false;
+                this.threshold = 50; // minimum distance for swipe
+                this.restraint = 100; // maximum distance perpendicular to swipe direction
+                this.allowedTime = 300; // maximum time allowed to travel that distance
+                this.startTime = 0;
+                
+                this.initSwipeContainers();
+            }
+            
+            initSwipeContainers() {
+                // Add swipe functionality to module grids
+                const moduleGrids = document.querySelectorAll('.modules-grid');
+                moduleGrids.forEach(grid => {
+                    this.makeSwipeable(grid);
+                });
+                
+                // Add swipe functionality to other horizontal scrollable elements
+                const swipeElements = document.querySelectorAll('.pricing-grid, .solutions-grid, .benefits-grid');
+                swipeElements.forEach(element => {
+                    this.makeSwipeable(element);
+                });
+            }
+            
+            makeSwipeable(element) {
+                // Add swipe indicators for mobile
+                if (window.innerWidth <= 768) {
+                    element.classList.add('swipeable');
+                    
+                    // Add swipe indicator
+                    const indicator = document.createElement('div');
+                    indicator.className = 'swipe-indicator';
+                    indicator.innerHTML = '<i class="fas fa-hand-point-right"></i> Swipe horizontally';
+                    element.parentNode.insertBefore(indicator, element);
+                }
+                
+                // Touch events
+                element.addEventListener('touchstart', (e) => this.handleTouchStart(e, element), { passive: true });
+                element.addEventListener('touchmove', (e) => this.handleTouchMove(e, element), { passive: false });
+                element.addEventListener('touchend', (e) => this.handleTouchEnd(e, element), { passive: true });
+                
+                // Mouse events for desktop testing
+                element.addEventListener('mousedown', (e) => this.handleMouseStart(e, element));
+                element.addEventListener('mousemove', (e) => this.handleMouseMove(e, element));
+                element.addEventListener('mouseup', (e) => this.handleMouseEnd(e, element));
+                element.addEventListener('mouseleave', (e) => this.handleMouseEnd(e, element));
+            }
+            
+            handleTouchStart(e, element) {
+                this.startX = e.touches[0].clientX;
+                this.startY = e.touches[0].clientY;
+                this.startTime = new Date().getTime();
+                this.isDragging = true;
+                element.style.transition = 'none';
+            }
+            
+            handleTouchMove(e, element) {
+                if (!this.isDragging) return;
+                
+                this.currentX = e.touches[0].clientX;
+                this.currentY = e.touches[0].clientY;
+                
+                const deltaX = this.currentX - this.startX;
+                const deltaY = this.currentY - this.startY;
+                
+                // Prevent vertical scrolling if horizontal swipe is detected
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    e.preventDefault();
+                    
+                    // Apply transform for immediate feedback
+                    const currentTransform = this.getTransformX(element);
+                    element.style.transform = `translateX(${currentTransform + deltaX}px)`;
+                }
+            }
+            
+            handleTouchEnd(e, element) {
+                if (!this.isDragging) return;
+                
+                const deltaX = this.currentX - this.startX;
+                const deltaY = this.currentY - this.startY;
+                const elapsedTime = new Date().getTime() - this.startTime;
+                
+                element.style.transition = 'transform 0.3s ease-out';
+                
+                // Check if it's a valid swipe
+                if (elapsedTime <= this.allowedTime && 
+                    Math.abs(deltaX) >= this.threshold && 
+                    Math.abs(deltaY) <= this.restraint) {
+                    
+                    if (deltaX > 0) {
+                        this.swipeRight(element);
+                    } else {
+                        this.swipeLeft(element);
+                    }
+                } else {
+                    // Snap back to current position
+                    this.snapToPosition(element);
+                }
+                
+                this.isDragging = false;
+            }
+            
+            handleMouseStart(e, element) {
+                if (window.innerWidth > 768) return; // Only on mobile-sized screens
+                this.startX = e.clientX;
+                this.startY = e.clientY;
+                this.startTime = new Date().getTime();
+                this.isDragging = true;
+                element.style.transition = 'none';
+                e.preventDefault();
+            }
+            
+            handleMouseMove(e, element) {
+                if (!this.isDragging || window.innerWidth > 768) return;
+                
+                this.currentX = e.clientX;
+                this.currentY = e.clientY;
+                
+                const deltaX = this.currentX - this.startX;
+                const currentTransform = this.getTransformX(element);
+                element.style.transform = `translateX(${currentTransform + deltaX}px)`;
+            }
+            
+            handleMouseEnd(e, element) {
+                if (!this.isDragging || window.innerWidth > 768) return;
+                this.handleTouchEnd(e, element);
+            }
+            
+            swipeLeft(element) {
+                const cardWidth = this.getCardWidth(element);
+                const currentTransform = this.getTransformX(element);
+                const maxTransform = this.getMaxTransform(element);
+                
+                const newTransform = Math.max(currentTransform - cardWidth, maxTransform);
+                element.style.transform = `translateX(${newTransform}px)`;
+                
+                this.updateSwipeIndicators(element, newTransform);
+            }
+            
+            swipeRight(element) {
+                const cardWidth = this.getCardWidth(element);
+                const currentTransform = this.getTransformX(element);
+                
+                const newTransform = Math.min(currentTransform + cardWidth, 0);
+                element.style.transform = `translateX(${newTransform}px)`;
+                
+                this.updateSwipeIndicators(element, newTransform);
+            }
+            
+            snapToPosition(element) {
+                const cardWidth = this.getCardWidth(element);
+                const currentTransform = this.getTransformX(element);
+                const maxTransform = this.getMaxTransform(element);
+                
+                // Snap to nearest card position
+                const position = Math.round(currentTransform / cardWidth) * cardWidth;
+                const snappedPosition = Math.max(Math.min(position, 0), maxTransform);
+                
+                element.style.transform = `translateX(${snappedPosition}px)`;
+                this.updateSwipeIndicators(element, snappedPosition);
+            }
+            
+            getTransformX(element) {
+                const transform = element.style.transform;
+                if (transform && transform.includes('translateX')) {
+                    const match = transform.match(/translateX\(([^)]+)\)/);
+                    return match ? parseFloat(match[1]) : 0;
+                }
+                return 0;
+            }
+            
+            getCardWidth(element) {
+                const card = element.querySelector('.module-card, .pricing-card, .solution-card, .benefit-item');
+                if (card) {
+                    const cardRect = card.getBoundingClientRect();
+                    const gap = 20; // Approximate gap between cards
+                    return cardRect.width + gap;
+                }
+                return 300; // Fallback width
+            }
+            
+            getMaxTransform(element) {
+                const containerWidth = element.getBoundingClientRect().width;
+                const totalWidth = element.scrollWidth;
+                return Math.min(0, containerWidth - totalWidth - 40); // 40px for padding
+            }
+            
+            updateSwipeIndicators(element, transform) {
+                // Add visual feedback for swipe position
+                const maxTransform = this.getMaxTransform(element);
+                const progress = maxTransform === 0 ? 0 : Math.abs(transform / maxTransform);
+                
+                // Update or create progress indicator
+                let indicator = element.parentNode.querySelector('.swipe-progress');
+                if (!indicator) {
+                    indicator = document.createElement('div');
+                    indicator.className = 'swipe-progress';
+                    element.parentNode.appendChild(indicator);
+                }
+                
+                indicator.style.width = `${Math.min(progress * 100, 100)}%`;
+            }
+        }
+        
+        // Initialize swipe functionality when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new TouchSwipeHandler();
+        });
+        
+        // Reinitialize on window resize
+        window.addEventListener('resize', () => {
+            // Remove existing indicators
+            document.querySelectorAll('.swipe-indicator, .swipe-progress').forEach(el => el.remove());
+            
+            // Reinitialize if mobile
+            if (window.innerWidth <= 768) {
+                setTimeout(() => {
+                    new TouchSwipeHandler();
+                }, 100);
+            }
+        });
+    </script>
 </body>
-</html> 
 </html> 
