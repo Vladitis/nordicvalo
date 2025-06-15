@@ -4504,6 +4504,441 @@
             position: relative;
             z-index: 2;
         }
+
+        /* PREMIUM PORTAL ACCORDION STYLES */
+        .portal-hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portal-hero-stats::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-stat-item {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-stat-item .stat-number {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #3b82f6, #60a5fa, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .hero-stat-item .stat-label {
+            color: var(--text-secondary);
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .portal-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .accordion-section {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 20px;
+            border: 1px solid rgba(96, 165, 250, 0.15);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .accordion-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .accordion-section.active::before,
+        .accordion-section:hover::before {
+            opacity: 1;
+        }
+
+        .accordion-header {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .accordion-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .accordion-section:hover .accordion-header::before {
+            left: 100%;
+        }
+
+        .accordion-title {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        .section-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .active-icon {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        .coming-icon {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+        }
+
+        .section-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .accordion-section:hover .section-icon::before {
+            opacity: 1;
+        }
+
+        .section-info h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .section-info p {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            font-weight: 500;
+        }
+
+        .section-badge {
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .active-badge {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+            animation: livePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 5px 25px rgba(16, 185, 129, 0.6); }
+        }
+
+        .coming-badge {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+        }
+
+        .accordion-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: rgba(59, 130, 246, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .accordion-toggle i {
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-section.active .accordion-toggle {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .accordion-section.active .accordion-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+
+        .accordion-section.active .accordion-content {
+            max-height: 2000px;
+            opacity: 1;
+            padding-bottom: 2rem;
+        }
+
+        .modules-showcase {
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .module-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(30, 58, 138, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(96, 165, 250, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .premium-active::before {
+            background: linear-gradient(180deg, #10b981, #34d399);
+        }
+
+        .premium-coming::before {
+            background: linear-gradient(180deg, #f59e0b, #fbbf24);
+        }
+
+        .module-item:hover {
+            transform: translateX(8px);
+            background: rgba(30, 58, 138, 0.1);
+            border-color: rgba(96, 165, 250, 0.3);
+        }
+
+        .module-item .module-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .premium-active .module-icon {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+        }
+
+        .premium-coming .module-icon {
+            background: linear-gradient(135deg, #6b7280, #9ca3af);
+            color: white;
+            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
+        }
+
+        .module-details {
+            flex: 1;
+        }
+
+        .module-details h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .module-details p {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .module-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .feature-tag {
+            padding: 0.3rem 0.8rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-blue);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .feature-tag:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        .module-status-indicator {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .active-status {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+            animation: statusPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .module-timeline {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-align: center;
+            min-width: 60px;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .portal-hero-stats {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero-stat-item .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .accordion-header {
+                padding: 1.2rem 1.5rem;
+            }
+
+            .accordion-title {
+                gap: 1rem;
+            }
+
+            .section-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .section-info h3 {
+                font-size: 1.2rem;
+            }
+
+            .modules-showcase {
+                padding: 0 1.5rem;
+            }
+
+            .module-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1.2rem;
+            }
+
+            .module-item:hover {
+                transform: none;
+            }
+
+            .module-details {
+                width: 100%;
+            }
+
+            .module-status-indicator,
+            .module-timeline {
+                align-self: flex-end;
+            }
+        }
     </style>
 </head>
 <body>
@@ -4785,125 +5220,216 @@
             </p>
             
             <div class="portal-dashboard animate-on-scroll">
-                <!-- HERO SECTION - BIG BOLD NUMBERS FIRST -->
-                <div class="dashboard-header">
-                    <div class="dashboard-info">
-                        <h3>Portaalin Konsepti 2026-2027</h3>
-                        <p>Yhtenäinen alusta kaikille teollisuussovelluksille</p>
-                    </div>
-                </div>
-
-                <!-- KEY STATS FIRST - F-PATTERN LAYOUT -->
-                <div class="portal-benefits animate-on-scroll">
-                    <div class="benefit-stat">
+                <!-- HERO STATS - BIG BOLD NUMBERS -->
+                <div class="portal-hero-stats">
+                    <div class="hero-stat-item">
                         <div class="stat-number">1</div>
                         <div class="stat-label">Yhtenäinen alusta</div>
                     </div>
-                    <div class="benefit-stat">
+                    <div class="hero-stat-item">
                         <div class="stat-number">9</div>
-                        <div class="stat-label">Moduulia</div>
+                        <div class="stat-label">Moduulia yhteensä</div>
                     </div>
-                    <div class="benefit-stat">
+                    <div class="hero-stat-item">
                         <div class="stat-number">2027</div>
-                        <div class="stat-label">Valmis</div>
+                        <div class="stat-label">Täysi portaali valmis</div>
                     </div>
                 </div>
 
-                <!-- ACTIVE MODULES - PRIORITY FIRST -->
-                <h4 class="modules-section-header">Käytössä nyt</h4>
-                <div class="modules-grid">
-                    <div class="module-card active-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-shield-alt"></i>
+                <!-- PREMIUM ACCORDION SECTIONS -->
+                <div class="portal-accordion">
+                    <!-- ACTIVE MODULES SECTION -->
+                    <div class="accordion-section active" data-section="active">
+                        <div class="accordion-header">
+                            <div class="accordion-title">
+                                <div class="section-icon active-icon">
+                                    <i class="fas fa-rocket"></i>
+                                </div>
+                                <div class="section-info">
+                                    <h3>Käytössä nyt</h3>
+                                    <p>3 moduulia saatavilla</p>
+                                </div>
+                                <div class="section-badge active-badge">LIVE</div>
+                            </div>
+                            <div class="accordion-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
                         </div>
-                        <h3>Turvasovellus</h3>
-                        <p>Riskienhallinta ja turvallisuusvalvonta</p>
-                    </div>
-                    
-                    <div class="module-card active-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-leaf"></i>
+                        <div class="accordion-content">
+                            <div class="modules-showcase">
+                                <div class="module-item premium-active">
+                                    <div class="module-icon">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div class="module-details">
+                                        <h4>Turvasovellus</h4>
+                                        <p>Riskienhallinta ja turvallisuusvalvonta</p>
+                                        <div class="module-features">
+                                            <span class="feature-tag">Riskianalyysi</span>
+                                            <span class="feature-tag">Raportit</span>
+                                            <span class="feature-tag">Valvonta</span>
+                                        </div>
+                                    </div>
+                                    <div class="module-status-indicator active-status">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="module-item premium-active">
+                                    <div class="module-icon">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                    <div class="module-details">
+                                        <h4>Ympäristötarkkailu</h4>
+                                        <p>ESG-raportointi ja ympäristövalvonta</p>
+                                        <div class="module-features">
+                                            <span class="feature-tag">ESG-mittarit</span>
+                                            <span class="feature-tag">Päästöseuranta</span>
+                                            <span class="feature-tag">Compliance</span>
+                                        </div>
+                                    </div>
+                                    <div class="module-status-indicator active-status">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                </div>
+                                
+                                <div class="module-item premium-active">
+                                    <div class="module-icon">
+                                        <i class="fas fa-plug"></i>
+                                    </div>
+                                    <div class="module-details">
+                                        <h4>Integraatiot</h4>
+                                        <p>API:t ja kolmannen osapuolen järjestelmät</p>
+                                        <div class="module-features">
+                                            <span class="feature-tag">REST API</span>
+                                            <span class="feature-tag">Webhooks</span>
+                                            <span class="feature-tag">SSO</span>
+                                        </div>
+                                    </div>
+                                    <div class="module-status-indicator active-status">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <h3>Ympäristötarkkailu</h3>
-                        <p>ESG-raportointi ja ympäristövalvonta</p>
                     </div>
-                    
-                    <div class="module-card active-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-plug"></i>
-                        </div>
-                        <h3>Integraatiot</h3>
-                        <p>API:t ja kolmannen osapuolen järjestelmät</p>
-                    </div>
-                </div>
 
-                <!-- COMING SOON - COMPACT LAYOUT -->
-                <h4 class="modules-section-header">Tulossa 2025-2027</h4>
-                <div class="modules-grid">
-                    <div class="module-card coming-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-star"></i>
+                    <!-- COMING MODULES SECTION -->
+                    <div class="accordion-section" data-section="coming">
+                        <div class="accordion-header">
+                            <div class="accordion-title">
+                                <div class="section-icon coming-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="section-info">
+                                    <h3>Tulossa 2025-2027</h3>
+                                    <p>6 moduulia kehityksessä</p>
+                                </div>
+                                <div class="section-badge coming-badge">ROADMAP</div>
+                            </div>
+                            <div class="accordion-toggle">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
                         </div>
-                        <div class="module-content">
-                            <h3>Laadunhallinta</h3>
-                            <p>ISO-standardit ja laadunvarmistus</p>
+                        <div class="accordion-content">
+                            <div class="modules-showcase">
+                                <div class="module-item premium-coming">
+                                    <div class="module-icon">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="module-details">
+                                        <h4>Laadunhallinta</h4>
+                                        <p>ISO-standardit ja laadunvarmistus</p>
+                                        <div class="module-features">
+                                            <span class="feature-tag">ISO 9001</span>
+                                            <span class="feature-tag">Auditit</span>
+                                            <span class="feature-tag">Dokumentit</span>
+                                        </div>
+                                    </div>
+                                    <div class="module-timeline">2025</div>
+                                </div>
+                                
+                                <div class="module-item premium-coming">
+                                    <div class="module-icon">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div class="module-details">
+                                        <h4>Energianhallinta</h4>
+                                        <p>Energiatehokkuus ja kulutusseuranta</p>
+                                        <div class="module-features">
+                                            <span class="feature-tag">Kulutusdata</span>
+                                            <span class="feature-tag">Optimointi</span>
+                                            <span class="feature-tag">Ennusteet</span>
+                                        </div>
+                                    </div>
+                                    <div class="module-timeline">2026</div>
+                                </div>
+                                
+                                <div class="module-item premium-coming">
+                                    <div class="module-icon">
+                                        <i class="fas fa-wrench"></i>
+                                    </div>
+                                    <div class="module-details">
+                                        <h4>Kunnossapito</h4>
+                                        <p>Ennakoiva huolto ja käyttöomaisuus</p>
+                                        <div class="module-features">
+                                            <span class="feature-tag">Predictive</span>
+                                            <span class="feature-tag">Scheduling</span>
+                                            <span class="feature-tag">Assets</span>
+                                        </div>
+                                    </div>
+                                    <div class="module-timeline">2026</div>
+                                </div>
+                                
+                                <div class="module-item premium-coming">
+                                    <div class="module-icon">
+                                        <i class="fas fa-clipboard-check"></i>
+                                    </div>
+                                    <div class="module-details">
+                                        <h4>Vaatimustenmukaisuus</h4>
+                                        <p>Säädösten seuranta ja raportointi</p>
+                                        <div class="module-features">
+                                            <span class="feature-tag">Regulations</span>
+                                            <span class="feature-tag">Tracking</span>
+                                            <span class="feature-tag">Alerts</span>
+                                        </div>
+                                    </div>
+                                    <div class="module-timeline">2026</div>
+                                </div>
+                                
+                                <div class="module-item premium-coming">
+                                    <div class="module-icon">
+                                        <i class="fas fa-user-shield"></i>
+                                    </div>
+                                    <div class="module-details">
+                                        <h4>Tietosuojahallinta</h4>
+                                        <p>GDPR ja henkilötietojen hallinta</p>
+                                        <div class="module-features">
+                                            <span class="feature-tag">GDPR</span>
+                                            <span class="feature-tag">Privacy</span>
+                                            <span class="feature-tag">Consent</span>
+                                        </div>
+                                    </div>
+                                    <div class="module-timeline">2027</div>
+                                </div>
+                                
+                                <div class="module-item premium-coming">
+                                    <div class="module-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="module-details">
+                                        <h4>Henkilöstöresurssit</h4>
+                                        <p>HR-hallinta ja osaamisen kehitys</p>
+                                        <div class="module-features">
+                                            <span class="feature-tag">Skills</span>
+                                            <span class="feature-tag">Training</span>
+                                            <span class="feature-tag">Performance</span>
+                                        </div>
+                                    </div>
+                                    <div class="module-timeline">2027</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="module-status">2025</div>
-                    </div>
-                    
-                    <div class="module-card coming-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <div class="module-content">
-                            <h3>Energianhallinta</h3>
-                            <p>Energiatehokkuus ja kulutusseuranta</p>
-                        </div>
-                        <div class="module-status">2026</div>
-                    </div>
-                    
-                    <div class="module-card coming-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-wrench"></i>
-                        </div>
-                        <div class="module-content">
-                            <h3>Kunnossapito</h3>
-                            <p>Ennakoiva huolto ja käyttöomaisuus</p>
-                        </div>
-                        <div class="module-status">2026</div>
-                    </div>
-                    
-                    <div class="module-card coming-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-clipboard-check"></i>
-                        </div>
-                        <div class="module-content">
-                            <h3>Vaatimustenmukaisuus</h3>
-                            <p>Säädösten seuranta ja raportointi</p>
-                        </div>
-                        <div class="module-status">2026</div>
-                    </div>
-                    
-                    <div class="module-card coming-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-user-shield"></i>
-                        </div>
-                        <div class="module-content">
-                            <h3>Tietosuojahallinta</h3>
-                            <p>GDPR ja henkilötietojen hallinta</p>
-                        </div>
-                        <div class="module-status">2027</div>
-                    </div>
-                    
-                    <div class="module-card coming-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="module-content">
-                            <h3>Henkilöstöresurssit</h3>
-                            <p>HR-hallinta ja osaamisen kehitys</p>
-                        </div>
-                        <div class="module-status">2027</div>
                     </div>
                 </div>
             </div>
@@ -5480,16 +6006,10 @@
             }
             
             initSwipeContainers() {
-                // Add swipe functionality to module grids
-                const moduleGrids = document.querySelectorAll('.modules-grid');
-                moduleGrids.forEach(grid => {
+                // Add swipe functionality ONLY to portal module grids
+                const portalModuleGrids = document.querySelectorAll('.portal-concept .modules-grid');
+                portalModuleGrids.forEach(grid => {
                     this.makeSwipeable(grid);
-                });
-                
-                // Add swipe functionality to other horizontal scrollable elements
-                const swipeElements = document.querySelectorAll('.pricing-grid, .solutions-grid, .benefits-grid');
-                swipeElements.forEach(element => {
-                    this.makeSwipeable(element);
                 });
             }
             
@@ -5676,7 +6196,56 @@
         // Initialize swipe functionality when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
             new TouchSwipeHandler();
+            initPortalAccordion();
         });
+
+        // Premium Portal Accordion Functionality
+        function initPortalAccordion() {
+            const accordionSections = document.querySelectorAll('.accordion-section');
+            
+            accordionSections.forEach(section => {
+                const header = section.querySelector('.accordion-header');
+                
+                header.addEventListener('click', () => {
+                    const isActive = section.classList.contains('active');
+                    
+                    // Close all sections first
+                    accordionSections.forEach(s => s.classList.remove('active'));
+                    
+                    // Open clicked section if it wasn't active
+                    if (!isActive) {
+                        section.classList.add('active');
+                        
+                        // Add stagger animation to module items
+                        const moduleItems = section.querySelectorAll('.module-item');
+                        moduleItems.forEach((item, index) => {
+                            item.style.animationDelay = `${index * 0.1}s`;
+                            item.classList.add('animate-slide-in');
+                        });
+                    }
+                });
+            });
+            
+            // Add CSS for slide-in animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+                
+                .animate-slide-in {
+                    animation: slideInUp 0.4s ease-out forwards;
+                }
+            `;
+            document.head.appendChild(style);
+        }
         
         // Reinitialize on window resize
         window.addEventListener('resize', () => {
