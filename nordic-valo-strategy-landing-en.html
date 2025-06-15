@@ -58,76 +58,6 @@
             }
         }
 
-        /* Touch Swipe Styles */
-        .swipeable {
-            overflow-x: hidden;
-            position: relative;
-            cursor: grab;
-        }
-        
-        .swipeable:active {
-            cursor: grabbing;
-        }
-        
-        .swipe-indicator {
-            text-align: center;
-            color: rgba(148, 163, 184, 0.8);
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-            padding: 0.5rem;
-            background: rgba(15, 23, 42, 0.5);
-            border-radius: 20px;
-            border: 1px solid rgba(148, 163, 184, 0.2);
-            animation: swipePulse 2s ease-in-out infinite;
-        }
-        
-        @keyframes swipePulse {
-            0%, 100% { opacity: 0.6; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.02); }
-        }
-        
-        .swipe-progress {
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, #60a5fa);
-            border-radius: 2px;
-            margin-top: 1rem;
-            transition: width 0.3s ease;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
-        }
-        
-        /* Enhanced mobile grid layouts for swipe */
-        @media (max-width: 768px) {
-            .modules-grid,
-            .pricing-grid,
-            .solutions-grid,
-            .benefits-grid {
-                display: flex;
-                flex-wrap: nowrap;
-                gap: 1rem;
-                padding: 0 1rem;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .module-card,
-            .pricing-card,
-            .solution-card,
-            .benefit-item {
-                flex: 0 0 280px;
-                scroll-snap-align: start;
-                touch-action: pan-y;
-            }
-            
-            /* Ensure cards maintain their styling during swipe */
-            .swipeable .module-card,
-            .swipeable .pricing-card,
-            .swipeable .solution-card,
-            .swipeable .benefit-item {
-                transition: transform 0.2s ease-out;
-                will-change: transform;
-            }
-        }
-
         /* Low-performance device detection and optimization */
         @supports not (backdrop-filter: blur(1px)) {
             /* Fallback for devices that don't support backdrop-filter */
@@ -2177,6 +2107,17 @@
             margin-bottom: 4rem;
         }
 
+        /* Mobile optimized solutions grid */
+        @media (max-width: 768px) {
+            .solutions-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+                max-width: 400px;
+                margin: 0 auto 4rem auto;
+            }
+        }
+
         /* Ensure 3 cards fit nicely on desktop */
         @media (min-width: 1024px) {
             .solutions-grid {
@@ -2215,6 +2156,37 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
+        }
+
+        /* Mobile optimization for solution cards */
+        @media (max-width: 768px) {
+            .solution-card {
+                padding: 2.5rem 2rem;
+                min-height: 360px;
+                border-radius: 24px;
+                text-align: center;
+            }
+
+            .solution-card:hover {
+                transform: translateY(-8px) scale(1.02);
+            }
+
+            .solution-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 1.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .solution-card h3 {
+                font-size: 1.4rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .solution-card p {
+                font-size: 1rem;
+                line-height: 1.5;
+            }
         }
 
         /* Better desktop spacing for solution cards */
@@ -3301,35 +3273,52 @@
                 margin-bottom: 2rem;
             }
 
-            /* KEY STATS FIRST - F-PATTERN LAYOUT */
+            /* KEY STATS - MOBILE OPTIMIZED LAYOUT */
             .portal-benefits {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                display: flex;
+                flex-direction: column;
                 gap: 1rem;
                 margin-bottom: 3rem;
                 padding: 0 1rem;
             }
 
             .benefit-stat {
-                text-align: center;
-                padding: 1.5rem 0.5rem;
-                background: rgba(15, 23, 42, 0.6);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1.5rem;
+                background: 
+                    linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
                 border-radius: 16px;
-                border: 1px solid rgba(96, 165, 250, 0.2);
+                border: 1px solid rgba(96, 165, 250, 0.25);
+                transition: all 0.3s ease;
+                min-height: 80px;
+            }
+
+            .benefit-stat:hover {
+                transform: translateX(8px);
+                border-color: rgba(96, 165, 250, 0.4);
+                background: 
+                    linear-gradient(135deg, rgba(96, 165, 250, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
+                box-shadow: 0 8px 25px rgba(96, 165, 250, 0.15);
             }
 
             .benefit-stat .stat-number {
-                font-size: clamp(2rem, 8vw, 2.5rem);
+                font-size: 2.5rem;
                 font-weight: 900;
                 color: #60a5fa;
-                display: block;
-                margin-bottom: 0.5rem;
+                margin-right: 1rem;
+                flex-shrink: 0;
+                text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
             }
 
             .benefit-stat .stat-label {
-                font-size: clamp(0.7rem, 3vw, 0.8rem);
-                color: rgba(255, 255, 255, 0.8);
-                line-height: 1.2;
+                font-size: 1.1rem;
+                color: rgba(255, 255, 255, 0.9);
+                line-height: 1.3;
+                text-align: left;
+                flex: 1;
+                font-weight: 500;
             }
 
             /* PROGRESSIVE DISCLOSURE - CATEGORIZED MODULES */
@@ -3443,30 +3432,11 @@
             }
 
             /* Roadmap mobile */
-            .roadmap-timeline {
-                position: relative;
-            }
-
-            .roadmap-timeline::before {
-                content: '';
-                position: absolute;
-                left: 50%;
-                top: 100px;
-                bottom: 100px;
-                width: 3px;
-                background: linear-gradient(180deg, var(--secondary-blue), var(--accent-blue));
-                border-radius: 2px;
-                transform: translateX(-50%);
-                z-index: 1;
-                box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
-            }
-
             .roadmap-item {
                 flex-direction: column;
                 text-align: center;
                 align-items: center;
                 margin-bottom: 2rem;
-                position: relative;
             }
 
             .roadmap-item::before {
@@ -4522,677 +4492,6 @@
             position: relative;
             z-index: 2;
         }
-
-        /* PREMIUM PORTAL ACCORDION STYLES */
-        .portal-hero-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1) 0%, rgba(59, 130, 246, 0.05) 100%);
-            border-radius: 20px;
-            border: 1px solid rgba(96, 165, 250, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .portal-hero-stats::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 30% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-stat-item {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-stat-item .stat-number {
-            font-size: clamp(2.5rem, 6vw, 3.5rem);
-            font-weight: 900;
-            background: linear-gradient(135deg, #3b82f6, #60a5fa, #93c5fd);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
-        }
-
-        .hero-stat-item .stat-label {
-            color: var(--text-secondary);
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .modules-accordion {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .module-accordion-item {
-            background: rgba(15, 23, 42, 0.6);
-            border-radius: 16px;
-            border: 1px solid rgba(96, 165, 250, 0.1);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-
-        .module-accordion-item:hover {
-            border-color: rgba(96, 165, 250, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .module-accordion-header {
-            padding: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transition: all 0.3s ease;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .module-accordion-header:hover {
-            background: rgba(96, 165, 250, 0.05);
-        }
-
-        .module-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-
-        .active-icon {
-            background: linear-gradient(135deg, #10b981, #34d399);
-            color: white;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-        }
-
-        .coming-icon {
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-            color: white;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
-        }
-
-        .module-info {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .module-info h4 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .module-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .status-badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .active-badge {
-            background: linear-gradient(135deg, #10b981, #34d399);
-            color: white;
-        }
-
-        .coming-badge {
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-            color: white;
-        }
-
-        .status-text {
-            font-size: 0.9rem;
-            color: var(--text-tertiary);
-        }
-
-        .module-accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-            background: rgba(15, 23, 42, 0.4);
-        }
-
-        .module-accordion-item.active .module-accordion-content {
-            padding: 1.5rem;
-        }
-
-        .module-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .module-description p {
-            margin-bottom: 1.5rem;
-            font-size: 1rem;
-        }
-
-        .module-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 0.75rem;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem;
-            background: rgba(96, 165, 250, 0.05);
-            border-radius: 8px;
-            border: 1px solid rgba(96, 165, 250, 0.1);
-        }
-
-        .feature-item i {
-            color: var(--accent-blue);
-            font-size: 0.9rem;
-            width: 16px;
-            flex-shrink: 0;
-        }
-
-        .feature-item span {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        /* Mobile optimizations */
-        @media (max-width: 768px) {
-            .modules-accordion {
-                gap: 0.75rem;
-            }
-
-            .module-accordion-header {
-                padding: 1rem;
-                gap: 0.75rem;
-            }
-
-            .module-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
-            }
-
-            .module-info h4 {
-                font-size: 1.1rem;
-            }
-
-            .module-accordion-item.active .module-accordion-content {
-                padding: 1rem;
-            }
-
-            .module-features {
-                grid-template-columns: 1fr;
-                gap: 0.5rem;
-            }
-
-            .feature-item {
-                padding: 0.4rem;
-            }
-
-            .feature-item span {
-                font-size: 0.85rem;
-            }
-        }
-
-        .accordion-section {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 20px;
-            border: 1px solid rgba(96, 165, 250, 0.15);
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-            position: relative;
-            will-change: auto;
-            width: 100%;
-            flex: 1;
-        }
-
-        /* Simplified mobile-friendly accordion styling */
-        @media (max-width: 768px) {
-            .accordion-section {
-                border-radius: 12px;
-                transition: none;
-            }
-            
-            .accordion-section::before {
-                display: none;
-            }
-        }
-
-        .accordion-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), transparent);
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
-        .accordion-section.active::before {
-            opacity: 1;
-        }
-
-        @media (min-width: 769px) {
-            .accordion-section:hover::before {
-                opacity: 1;
-            }
-        }
-
-        .accordion-header {
-            padding: 1.5rem 2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: background-color 0.2s ease;
-            position: relative;
-            touch-action: manipulation;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Mobile optimization */
-        @media (max-width: 768px) {
-            .accordion-header {
-                padding: 1rem 1.5rem;
-            }
-        }
-
-        /* Remove expensive hover effects on mobile */
-        @media (min-width: 769px) {
-            .accordion-header::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -100%;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.05), transparent);
-                transition: left 0.4s ease;
-            }
-
-            .accordion-section:hover .accordion-header::before {
-                left: 100%;
-            }
-        }
-
-        .accordion-title {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            flex: 1;
-        }
-
-        .section-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .active-icon {
-            background: linear-gradient(135deg, #10b981, #34d399);
-            color: white;
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
-        }
-
-        .coming-icon {
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-            color: white;
-            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
-        }
-
-        .section-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.2), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .accordion-section:hover .section-icon::before {
-            opacity: 1;
-        }
-
-        .section-info h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.3rem;
-        }
-
-        .section-info p {
-            font-size: 0.9rem;
-            color: var(--text-tertiary);
-            font-weight: 500;
-        }
-
-        .section-badge {
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .active-badge {
-            background: linear-gradient(135deg, #10b981, #34d399);
-            color: white;
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
-            animation: livePulse 2s ease-in-out infinite;
-        }
-
-        @keyframes livePulse {
-            0%, 100% { box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); }
-            50% { box-shadow: 0 5px 25px rgba(16, 185, 129, 0.6); }
-        }
-
-        .coming-badge {
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-            color: white;
-            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
-        }
-
-        .accordion-toggle {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: rgba(59, 130, 246, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        .accordion-toggle i {
-            color: var(--accent-blue);
-            font-size: 1.2rem;
-            transition: transform 0.3s ease;
-        }
-
-        .accordion-section.active .accordion-toggle {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: rgba(59, 130, 246, 0.4);
-        }
-
-        .accordion-section.active .accordion-toggle i {
-            transform: rotate(180deg);
-        }
-
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-            opacity: 0;
-            transform: translateZ(0);
-            will-change: max-height;
-        }
-
-        .accordion-section.active .accordion-content {
-            opacity: 1;
-            padding-bottom: 2rem;
-        }
-
-        /* Mobile optimization for accordion content */
-        @media (max-width: 768px) {
-            .accordion-content {
-                transition: max-height 0.25s ease-out, opacity 0.25s ease-out;
-            }
-            
-            .accordion-section.active .accordion-content {
-                transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
-            }
-        }
-
-        .modules-showcase {
-            padding: 0 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            width: 100%;
-        }
-
-        .module-item {
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        .module-item {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            background: rgba(30, 58, 138, 0.05);
-            border-radius: 15px;
-            border: 1px solid rgba(96, 165, 250, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .module-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .premium-active::before {
-            background: linear-gradient(180deg, #10b981, #34d399);
-        }
-
-        .premium-coming::before {
-            background: linear-gradient(180deg, #f59e0b, #fbbf24);
-        }
-
-        .module-item:hover {
-            transform: translateX(8px);
-            background: rgba(30, 58, 138, 0.1);
-            border-color: rgba(96, 165, 250, 0.3);
-        }
-
-        .module-item .module-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            flex-shrink: 0;
-        }
-
-        .premium-active .module-icon {
-            background: linear-gradient(135deg, #10b981, #34d399);
-            color: white;
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
-        }
-
-        .premium-coming .module-icon {
-            background: linear-gradient(135deg, #6b7280, #9ca3af);
-            color: white;
-            box-shadow: 0 8px 25px rgba(107, 114, 128, 0.3);
-        }
-
-        .module-details {
-            flex: 1;
-        }
-
-        .module-details h4 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .module-details p {
-            font-size: 0.9rem;
-            color: var(--text-tertiary);
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .module-features {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .feature-tag {
-            padding: 0.3rem 0.8rem;
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--accent-blue);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            transition: all 0.2s ease;
-        }
-
-        .feature-tag:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: rgba(59, 130, 246, 0.4);
-        }
-
-        .module-status-indicator {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .active-status {
-            background: linear-gradient(135deg, #10b981, #34d399);
-            color: white;
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
-            animation: statusPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes statusPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .module-timeline {
-            padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, #f59e0b, #fbbf24);
-            color: white;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            text-align: center;
-            min-width: 60px;
-            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
-        }
-
-        /* Mobile Optimizations */
-        @media (max-width: 768px) {
-            .portal-hero-stats {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                padding: 1.5rem;
-                margin-bottom: 2rem;
-            }
-
-            .hero-stat-item .stat-number {
-                font-size: 2.5rem;
-            }
-
-            .accordion-header {
-                padding: 1.2rem 1.5rem;
-            }
-
-            .accordion-title {
-                gap: 1rem;
-            }
-
-            .section-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
-            }
-
-            .section-info h3 {
-                font-size: 1.2rem;
-            }
-
-            .modules-showcase {
-                padding: 0 1.5rem;
-            }
-
-            .module-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1rem;
-                padding: 1.2rem;
-            }
-
-            .module-item:hover {
-                transform: none;
-            }
-
-            .module-details {
-                width: 100%;
-            }
-
-            .module-status-indicator,
-            .module-timeline {
-                align-self: flex-end;
-            }
-        }
     </style>
 </head>
 <body>
@@ -5474,398 +4773,126 @@
             </p>
             
             <div class="portal-dashboard animate-on-scroll">
-                <!-- HERO STATS - BIG BOLD NUMBERS -->
-                <div class="portal-hero-stats">
-                    <div class="hero-stat-item">
-                        <div class="stat-number">1</div>
-                        <div class="stat-label">Unified Platform</div>
-                    </div>
-                    <div class="hero-stat-item">
-                        <div class="stat-number">9</div>
-                        <div class="stat-label">Total Modules</div>
-                    </div>
-                    <div class="hero-stat-item">
-                        <div class="stat-number">2027</div>
-                        <div class="stat-label">Full Portal Ready</div>
+                <!-- HERO SECTION - BIG BOLD NUMBERS FIRST -->
+                <div class="dashboard-header">
+                    <div class="dashboard-info">
+                        <h3>Portal Concept 2026-2027</h3>
+                        <p>Unified platform for all industrial applications</p>
                     </div>
                 </div>
 
-                <!-- MODULE ACCORDION LIST -->
-                <div class="modules-accordion">
+                <!-- KEY STATS FIRST - F-PATTERN LAYOUT -->
+                <div class="portal-benefits animate-on-scroll">
+                    <div class="benefit-stat">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Unified platform</div>
+                    </div>
+                    <div class="benefit-stat">
+                        <div class="stat-number">9</div>
+                        <div class="stat-label">Modules</div>
+                    </div>
+                    <div class="benefit-stat">
+                        <div class="stat-number">2027</div>
+                        <div class="stat-label">Ready</div>
+                    </div>
+                </div>
+
+                <!-- ACTIVE MODULES - PRIORITY FIRST -->
+                <h4 class="modules-section-header">Active Now</h4>
+                <div class="modules-grid">
+                    <div class="module-card active-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Safety Application</h3>
+                        <p>Risk management and safety monitoring</p>
+                    </div>
                     
-                    <!-- ACTIVE MODULES -->
-                    <div class="module-accordion-item active-module">
-                        <div class="module-accordion-header">
-                            <div class="module-icon active-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <div class="module-info">
-                                <h4>Safety Application</h4>
-                                <div class="module-status">
-                                    <span class="status-badge active-badge">LIVE</span>
-                                    <span class="status-text">Available now</span>
-                                </div>
-                            </div>
-                            <div class="accordion-toggle">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
+                    <div class="module-card active-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-leaf"></i>
                         </div>
-                        <div class="module-accordion-content">
-                            <div class="module-description">
-                                <p>Comprehensive risk management and safety monitoring solution for industrial environments. Track incidents, manage safety protocols, and ensure regulatory compliance with real-time monitoring and automated reporting.</p>
-                                <div class="module-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-chart-line"></i>
-                                        <span>Risk Analysis & Assessment</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-file-alt"></i>
-                                        <span>Automated Safety Reports</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-eye"></i>
-                                        <span>Real-time Safety Monitoring</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-bell"></i>
-                                        <span>Incident Alert System</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h3>Environmental Monitoring</h3>
+                        <p>ESG reporting and environmental supervision</p>
                     </div>
-
-
-
-                    <div class="module-accordion-item active-module">
-                        <div class="module-accordion-header">
-                            <div class="module-icon active-icon">
-                                <i class="fas fa-plug"></i>
-                            </div>
-                            <div class="module-info">
-                                <h4>Integrations Hub</h4>
-                                <div class="module-status">
-                                    <span class="status-badge active-badge">LIVE</span>
-                                    <span class="status-text">Available now</span>
-                                </div>
-                            </div>
-                            <div class="accordion-toggle">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
+                    
+                    <div class="module-card active-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-plug"></i>
                         </div>
-                        <div class="module-accordion-content">
-                            <div class="module-description">
-                                <p>Seamless integration platform connecting Nordic Valo with your existing systems. REST APIs, webhooks, and SSO capabilities ensure smooth data flow and unified authentication across your technology stack.</p>
-                                <div class="module-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-code"></i>
-                                        <span>REST API Gateway</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-link"></i>
-                                        <span>Webhook Management</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-key"></i>
-                                        <span>Single Sign-On (SSO)</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-database"></i>
-                                        <span>Data Synchronization</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h3>Integrations</h3>
+                        <p>APIs and third-party systems</p>
                     </div>
+                </div>
 
-                    <!-- COMING MODULES -->
-                    <div class="module-accordion-item coming-module">
-                        <div class="module-accordion-header">
-                            <div class="module-icon coming-icon">
-                                <i class="fas fa-leaf"></i>
-                            </div>
-                            <div class="module-info">
-                                <h4>Environmental Monitoring</h4>
-                                <div class="module-status">
-                                    <span class="status-badge coming-badge">2025</span>
-                                    <span class="status-text">In development</span>
-                                </div>
-                            </div>
-                            <div class="accordion-toggle">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
+                <!-- COMING SOON - COMPACT LAYOUT -->
+                <h4 class="modules-section-header">Coming 2025-2027</h4>
+                <div class="modules-grid">
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-star"></i>
                         </div>
-                        <div class="module-accordion-content">
-                            <div class="module-description">
-                                <p>Advanced ESG reporting and environmental compliance management. Monitor emissions, track sustainability metrics, and generate comprehensive environmental reports for stakeholders and regulatory bodies.</p>
-                                <div class="module-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-chart-bar"></i>
-                                        <span>ESG Metrics Dashboard</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-smog"></i>
-                                        <span>Emissions Tracking</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-check-circle"></i>
-                                        <span>Compliance Management</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-globe"></i>
-                                        <span>Sustainability Reporting</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="module-content">
+                            <h3>Quality Management</h3>
+                            <p>ISO standards and quality assurance</p>
                         </div>
+                        <div class="module-status">2025</div>
                     </div>
-
-                    <div class="module-accordion-item coming-module">
-                        <div class="module-accordion-header">
-                            <div class="module-icon coming-icon">
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <div class="module-info">
-                                <h4>Quality Management</h4>
-                                <div class="module-status">
-                                    <span class="status-badge coming-badge">2025</span>
-                                    <span class="status-text">In development</span>
-                                </div>
-                            </div>
-                            <div class="accordion-toggle">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
+                    
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-bolt"></i>
                         </div>
-                        <div class="module-accordion-content">
-                            <div class="module-description">
-                                <p>Comprehensive quality management system built for ISO 9001 compliance. Streamline audits, manage documentation, track quality metrics, and maintain continuous improvement processes with automated workflows.</p>
-                                <div class="module-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-certificate"></i>
-                                        <span>ISO 9001 Compliance</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-clipboard-list"></i>
-                                        <span>Digital Audit Management</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-folder-open"></i>
-                                        <span>Document Control System</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-trending-up"></i>
-                                        <span>Quality Metrics Dashboard</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="module-content">
+                            <h3>Energy Management</h3>
+                            <p>Energy efficiency and consumption monitoring</p>
                         </div>
+                        <div class="module-status">2026</div>
                     </div>
-
-                    <div class="module-accordion-item coming-module">
-                        <div class="module-accordion-header">
-                            <div class="module-icon coming-icon">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <div class="module-info">
-                                <h4>Energy Management</h4>
-                                <div class="module-status">
-                                    <span class="status-badge coming-badge">2026</span>
-                                    <span class="status-text">In development</span>
-                                </div>
-                            </div>
-                            <div class="accordion-toggle">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
+                    
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-wrench"></i>
                         </div>
-                        <div class="module-accordion-content">
-                            <div class="module-description">
-                                <p>Advanced energy efficiency and consumption tracking system. Monitor usage patterns, optimize energy consumption, generate forecasts, and implement cost-saving strategies with AI-powered insights.</p>
-                                <div class="module-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-chart-area"></i>
-                                        <span>Real-time Usage Monitoring</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-brain"></i>
-                                        <span>AI-powered Optimization</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-crystal-ball"></i>
-                                        <span>Energy Demand Forecasting</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-piggy-bank"></i>
-                                        <span>Cost Optimization Tools</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="module-content">
+                            <h3>Maintenance</h3>
+                            <p>Predictive maintenance and asset management</p>
                         </div>
+                        <div class="module-status">2026</div>
                     </div>
-
-                    <div class="module-accordion-item coming-module">
-                        <div class="module-accordion-header">
-                            <div class="module-icon coming-icon">
-                                <i class="fas fa-wrench"></i>
-                            </div>
-                            <div class="module-info">
-                                <h4>Maintenance Management</h4>
-                                <div class="module-status">
-                                    <span class="status-badge coming-badge">2026</span>
-                                    <span class="status-text">In development</span>
-                                </div>
-                            </div>
-                            <div class="accordion-toggle">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
+                    
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-clipboard-check"></i>
                         </div>
-                        <div class="module-accordion-content">
-                            <div class="module-description">
-                                <p>Smart predictive maintenance and asset management platform. Prevent equipment failures, optimize maintenance schedules, track asset lifecycles, and reduce downtime with IoT sensor integration.</p>
-                                <div class="module-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-robot"></i>
-                                        <span>Predictive Analytics</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-calendar-alt"></i>
-                                        <span>Smart Scheduling</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-tools"></i>
-                                        <span>Asset Lifecycle Management</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-wifi"></i>
-                                        <span>IoT Sensor Integration</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="module-content">
+                            <h3>Compliance</h3>
+                            <p>Regulatory monitoring and reporting</p>
                         </div>
+                        <div class="module-status">2026</div>
                     </div>
-
-                    <div class="module-accordion-item coming-module">
-                        <div class="module-accordion-header">
-                            <div class="module-icon coming-icon">
-                                <i class="fas fa-clipboard-check"></i>
-                            </div>
-                            <div class="module-info">
-                                <h4>Compliance Management</h4>
-                                <div class="module-status">
-                                    <span class="status-badge coming-badge">2026</span>
-                                    <span class="status-text">In development</span>
-                                </div>
-                            </div>
-                            <div class="accordion-toggle">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
+                    
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-user-shield"></i>
                         </div>
-                        <div class="module-accordion-content">
-                            <div class="module-description">
-                                <p>Automated regulatory compliance tracking and management system. Stay ahead of changing regulations, track compliance status, receive alerts for upcoming requirements, and generate compliance reports.</p>
-                                <div class="module-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-balance-scale"></i>
-                                        <span>Regulatory Database</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-search"></i>
-                                        <span>Compliance Tracking</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-exclamation-triangle"></i>
-                                        <span>Automated Alerts</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-file-contract"></i>
-                                        <span>Compliance Reporting</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="module-content">
+                            <h3>Data Protection</h3>
+                            <p>GDPR compliance and personal data management</p>
                         </div>
+                        <div class="module-status">2027</div>
                     </div>
-
-                    <div class="module-accordion-item coming-module">
-                        <div class="module-accordion-header">
-                            <div class="module-icon coming-icon">
-                                <i class="fas fa-user-shield"></i>
-                            </div>
-                            <div class="module-info">
-                                <h4>Data Privacy Management</h4>
-                                <div class="module-status">
-                                    <span class="status-badge coming-badge">2027</span>
-                                    <span class="status-text">In development</span>
-                                </div>
-                            </div>
-                            <div class="accordion-toggle">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
+                    
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-users"></i>
                         </div>
-                        <div class="module-accordion-content">
-                            <div class="module-description">
-                                <p>Complete GDPR and data privacy management solution. Manage consent, track data processing activities, handle data subject requests, and ensure privacy compliance with automated privacy impact assessments.</p>
-                                <div class="module-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-shield-alt"></i>
-                                        <span>GDPR Compliance</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-hand-paper"></i>
-                                        <span>Consent Management</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-user-check"></i>
-                                        <span>Data Subject Rights</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-clipboard-list"></i>
-                                        <span>Privacy Impact Assessment</span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="module-content">
+                            <h3>Human Resources</h3>
+                            <p>HR management and competence development</p>
                         </div>
+                        <div class="module-status">2027</div>
                     </div>
-
-                    <div class="module-accordion-item coming-module">
-                        <div class="module-accordion-header">
-                            <div class="module-icon coming-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="module-info">
-                                <h4>Human Resources</h4>
-                                <div class="module-status">
-                                    <span class="status-badge coming-badge">2027</span>
-                                    <span class="status-text">In development</span>
-                                </div>
-                            </div>
-                            <div class="accordion-toggle">
-                                <i class="fas fa-chevron-down"></i>
-                            </div>
-                        </div>
-                        <div class="module-accordion-content">
-                            <div class="module-description">
-                                <p>Comprehensive HR management and skills development platform. Manage employee lifecycle, track competencies, plan training programs, monitor performance, and develop talent with integrated learning management.</p>
-                                <div class="module-features">
-                                    <div class="feature-item">
-                                        <i class="fas fa-graduation-cap"></i>
-                                        <span>Skills Development</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-chalkboard-teacher"></i>
-                                        <span>Training Management</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-chart-line"></i>
-                                        <span>Performance Tracking</span>
-                                    </div>
-                                    <div class="feature-item">
-                                        <i class="fas fa-user-tie"></i>
-                                        <span>Talent Development</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -6421,325 +5448,6 @@
             }
         });
     </script>
-
-    <!-- Touch Swipe Functionality -->
-    <script>
-        // Touch swipe functionality for mobile
-        class TouchSwipeHandler {
-            constructor() {
-                this.startX = 0;
-                this.startY = 0;
-                this.currentX = 0;
-                this.currentY = 0;
-                this.isDragging = false;
-                this.threshold = 50; // minimum distance for swipe
-                this.restraint = 100; // maximum distance perpendicular to swipe direction
-                this.allowedTime = 300; // maximum time allowed to travel that distance
-                this.startTime = 0;
-                
-                this.initSwipeContainers();
-            }
-            
-            initSwipeContainers() {
-                // Add swipe functionality ONLY to portal module grids
-                const portalModuleGrids = document.querySelectorAll('.portal-concept .modules-grid');
-                portalModuleGrids.forEach(grid => {
-                    this.makeSwipeable(grid);
-                });
-            }
-            
-            makeSwipeable(element) {
-                // Add swipe indicators for mobile
-                if (window.innerWidth <= 768) {
-                    element.classList.add('swipeable');
-                    
-                    // Add swipe indicator
-                    const indicator = document.createElement('div');
-                    indicator.className = 'swipe-indicator';
-                    indicator.innerHTML = '<i class="fas fa-hand-point-right"></i> Swipe horizontally';
-                    element.parentNode.insertBefore(indicator, element);
-                }
-                
-                // Touch events
-                element.addEventListener('touchstart', (e) => this.handleTouchStart(e, element), { passive: true });
-                element.addEventListener('touchmove', (e) => this.handleTouchMove(e, element), { passive: false });
-                element.addEventListener('touchend', (e) => this.handleTouchEnd(e, element), { passive: true });
-                
-                // Mouse events for desktop testing
-                element.addEventListener('mousedown', (e) => this.handleMouseStart(e, element));
-                element.addEventListener('mousemove', (e) => this.handleMouseMove(e, element));
-                element.addEventListener('mouseup', (e) => this.handleMouseEnd(e, element));
-                element.addEventListener('mouseleave', (e) => this.handleMouseEnd(e, element));
-            }
-            
-            handleTouchStart(e, element) {
-                this.startX = e.touches[0].clientX;
-                this.startY = e.touches[0].clientY;
-                this.startTime = new Date().getTime();
-                this.isDragging = true;
-                element.style.transition = 'none';
-            }
-            
-            handleTouchMove(e, element) {
-                if (!this.isDragging) return;
-                
-                this.currentX = e.touches[0].clientX;
-                this.currentY = e.touches[0].clientY;
-                
-                const deltaX = this.currentX - this.startX;
-                const deltaY = this.currentY - this.startY;
-                
-                // Prevent vertical scrolling if horizontal swipe is detected
-                if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    e.preventDefault();
-                    
-                    // Apply transform for immediate feedback
-                    const currentTransform = this.getTransformX(element);
-                    element.style.transform = `translateX(${currentTransform + deltaX}px)`;
-                }
-            }
-            
-            handleTouchEnd(e, element) {
-                if (!this.isDragging) return;
-                
-                const deltaX = this.currentX - this.startX;
-                const deltaY = this.currentY - this.startY;
-                const elapsedTime = new Date().getTime() - this.startTime;
-                
-                element.style.transition = 'transform 0.3s ease-out';
-                
-                // Check if it's a valid swipe
-                if (elapsedTime <= this.allowedTime && 
-                    Math.abs(deltaX) >= this.threshold && 
-                    Math.abs(deltaY) <= this.restraint) {
-                    
-                    if (deltaX > 0) {
-                        this.swipeRight(element);
-                    } else {
-                        this.swipeLeft(element);
-                    }
-                } else {
-                    // Snap back to current position
-                    this.snapToPosition(element);
-                }
-                
-                this.isDragging = false;
-            }
-            
-            handleMouseStart(e, element) {
-                if (window.innerWidth > 768) return; // Only on mobile-sized screens
-                this.startX = e.clientX;
-                this.startY = e.clientY;
-                this.startTime = new Date().getTime();
-                this.isDragging = true;
-                element.style.transition = 'none';
-                e.preventDefault();
-            }
-            
-            handleMouseMove(e, element) {
-                if (!this.isDragging || window.innerWidth > 768) return;
-                
-                this.currentX = e.clientX;
-                this.currentY = e.clientY;
-                
-                const deltaX = this.currentX - this.startX;
-                const currentTransform = this.getTransformX(element);
-                element.style.transform = `translateX(${currentTransform + deltaX}px)`;
-            }
-            
-            handleMouseEnd(e, element) {
-                if (!this.isDragging || window.innerWidth > 768) return;
-                this.handleTouchEnd(e, element);
-            }
-            
-            swipeLeft(element) {
-                const cardWidth = this.getCardWidth(element);
-                const currentTransform = this.getTransformX(element);
-                const maxTransform = this.getMaxTransform(element);
-                
-                const newTransform = Math.max(currentTransform - cardWidth, maxTransform);
-                element.style.transform = `translateX(${newTransform}px)`;
-                
-                this.updateSwipeIndicators(element, newTransform);
-            }
-            
-            swipeRight(element) {
-                const cardWidth = this.getCardWidth(element);
-                const currentTransform = this.getTransformX(element);
-                
-                const newTransform = Math.min(currentTransform + cardWidth, 0);
-                element.style.transform = `translateX(${newTransform}px)`;
-                
-                this.updateSwipeIndicators(element, newTransform);
-            }
-            
-            snapToPosition(element) {
-                const cardWidth = this.getCardWidth(element);
-                const currentTransform = this.getTransformX(element);
-                const maxTransform = this.getMaxTransform(element);
-                
-                // Snap to nearest card position
-                const position = Math.round(currentTransform / cardWidth) * cardWidth;
-                const snappedPosition = Math.max(Math.min(position, 0), maxTransform);
-                
-                element.style.transform = `translateX(${snappedPosition}px)`;
-                this.updateSwipeIndicators(element, snappedPosition);
-            }
-            
-            getTransformX(element) {
-                const transform = element.style.transform;
-                if (transform && transform.includes('translateX')) {
-                    const match = transform.match(/translateX\(([^)]+)\)/);
-                    return match ? parseFloat(match[1]) : 0;
-                }
-                return 0;
-            }
-            
-            getCardWidth(element) {
-                const card = element.querySelector('.module-card, .pricing-card, .solution-card, .benefit-item');
-                if (card) {
-                    const cardRect = card.getBoundingClientRect();
-                    const gap = 20; // Approximate gap between cards
-                    return cardRect.width + gap;
-                }
-                return 300; // Fallback width
-            }
-            
-            getMaxTransform(element) {
-                const containerWidth = element.getBoundingClientRect().width;
-                const totalWidth = element.scrollWidth;
-                return Math.min(0, containerWidth - totalWidth - 40); // 40px for padding
-            }
-            
-            updateSwipeIndicators(element, transform) {
-                // Add visual feedback for swipe position
-                const maxTransform = this.getMaxTransform(element);
-                const progress = maxTransform === 0 ? 0 : Math.abs(transform / maxTransform);
-                
-                // Update or create progress indicator
-                let indicator = element.parentNode.querySelector('.swipe-progress');
-                if (!indicator) {
-                    indicator = document.createElement('div');
-                    indicator.className = 'swipe-progress';
-                    element.parentNode.appendChild(indicator);
-                }
-                
-                indicator.style.width = `${Math.min(progress * 100, 100)}%`;
-            }
-        }
-        
-        // Initialize swipe functionality when DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            new TouchSwipeHandler();
-            initPortalAccordion();
-        });
-
-        // Module Accordion Functionality
-        function initPortalAccordion() {
-            const accordionItems = document.querySelectorAll('.module-accordion-item');
-            
-            console.log('Initializing module accordion with items:', accordionItems.length);
-            
-            accordionItems.forEach((item, index) => {
-                const header = item.querySelector('.module-accordion-header');
-                if (!header) return;
-                
-                console.log(`Setting up module ${index}:`, item);
-                
-                // Remove any existing listeners to prevent duplicates
-                const newHeader = header.cloneNode(true);
-                header.parentNode.replaceChild(newHeader, header);
-                
-                newHeader.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    console.log('Module accordion clicked:', item);
-                    
-                    const isCurrentlyActive = item.classList.contains('active');
-                    const content = item.querySelector('.module-accordion-content');
-                    
-                    if (!content) return;
-                    
-                    if (isCurrentlyActive) {
-                        // Close current item
-                        item.classList.remove('active');
-                        content.style.maxHeight = '0px';
-                    } else {
-                        // Close all other items first
-                        accordionItems.forEach(otherItem => {
-                            if (otherItem !== item) {
-                                otherItem.classList.remove('active');
-                                const otherContent = otherItem.querySelector('.module-accordion-content');
-                                if (otherContent) {
-                                    otherContent.style.maxHeight = '0px';
-                                }
-                            }
-                        });
-                        
-                        // Open clicked item
-                        item.classList.add('active');
-                        
-                        // Calculate actual content height
-                        content.style.maxHeight = 'none';
-                        const scrollHeight = content.scrollHeight;
-                        content.style.maxHeight = '0px';
-                        
-                        // Trigger reflow and animate
-                        setTimeout(() => {
-                            content.style.maxHeight = scrollHeight + 'px';
-                        }, 10);
-                        
-                        // Add stagger animation to feature items
-                        const featureItems = content.querySelectorAll('.feature-item');
-                        featureItems.forEach((featureItem, featureIndex) => {
-                            featureItem.style.animationDelay = `${featureIndex * 0.03}s`;
-                            featureItem.classList.remove('animate-slide-in');
-                            setTimeout(() => {
-                                featureItem.classList.add('animate-slide-in');
-                            }, 50);
-                        });
-                    }
-                });
-            });
-            
-            // Add CSS for slide-in animation
-            if (!document.getElementById('accordion-animations')) {
-                const style = document.createElement('style');
-                style.id = 'accordion-animations';
-                style.textContent = `
-                    @keyframes slideInUp {
-                        from {
-                            opacity: 0;
-                            transform: translateY(15px);
-                        }
-                        to {
-                            opacity: 1;
-                            transform: translateY(0);
-                        }
-                    }
-                    
-                    .animate-slide-in {
-                        animation: slideInUp 0.25s ease-out forwards;
-                        opacity: 0;
-                    }
-                `;
-                document.head.appendChild(style);
-            }
-        }
-        
-        // Reinitialize on window resize
-        window.addEventListener('resize', () => {
-            // Remove existing indicators
-            document.querySelectorAll('.swipe-indicator, .swipe-progress').forEach(el => el.remove());
-            
-            // Reinitialize if mobile
-            if (window.innerWidth <= 768) {
-                setTimeout(() => {
-                    new TouchSwipeHandler();
-                }, 100);
-            }
-        });
-    </script>
 </body>
+</html> 
 </html> 
