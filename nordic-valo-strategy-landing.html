@@ -3477,7 +3477,7 @@
                 padding: 1.8rem 1.5rem;
                 border-radius: 16px;
                 display: flex;
-                align-items: center;
+                align-items: flex-start; /* Changed from center to flex-start */
                 gap: 1.2rem;
                 margin-bottom: 0.8rem;
                 position: relative;
@@ -3487,6 +3487,7 @@
                     0 8px 25px rgba(0, 0, 0, 0.2),
                     inset 0 1px 0 rgba(255, 255, 255, 0.05);
                 transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+                min-height: 80px; /* Ensure minimum height */
             }
 
             .module-card.coming-module::before {
@@ -3541,14 +3542,19 @@
 
             .module-card.coming-module .module-content {
                 flex: 1;
+                min-width: 0; /* Allow content to shrink */
+                padding-top: 0.2rem; /* Align with icon */
             }
 
             .module-card.coming-module h3 {
-                font-size: clamp(1rem, 4vw, 1.1rem);
+                font-size: clamp(0.95rem, 4vw, 1.05rem); /* Slightly smaller */
                 font-weight: 700;
                 color: rgba(255, 255, 255, 0.9);
                 margin-bottom: 0.4rem;
                 text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+                word-wrap: break-word; /* Handle long words */
+                hyphens: auto; /* Enable hyphenation */
+                line-height: 1.3; /* Better line spacing */
             }
 
             .module-card.coming-module p {
@@ -3559,17 +3565,59 @@
 
             .module-card.coming-module .module-status {
                 position: static;
-                padding: 0.4rem 0.8rem;
-                font-size: 0.7rem;
+                padding: 0.35rem 0.7rem; /* Slightly smaller padding */
+                font-size: 0.65rem; /* Smaller font */
                 background: 
                     linear-gradient(135deg, rgba(251, 191, 36, 0.25) 0%, rgba(251, 191, 36, 0.1) 100%);
                 color: #fbbf24;
                 border: 1px solid rgba(251, 191, 36, 0.4);
-                border-radius: 10px;
+                border-radius: 8px; /* Smaller border radius */
                 font-weight: 700;
                 flex-shrink: 0;
                 text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
                 box-shadow: 0 2px 8px rgba(251, 191, 36, 0.1);
+                align-self: flex-start; /* Align to top */
+                margin-top: 0.2rem; /* Small top margin */
+                white-space: nowrap; /* Prevent text wrapping */
+                min-width: fit-content; /* Ensure it fits content */
+            }
+
+            /* Mobile specific optimizations for coming modules */
+            .module-card.coming-module {
+                padding: 1.5rem 1.2rem; /* Reduced padding on mobile */
+                gap: 1rem; /* Smaller gap */
+            }
+            
+            .module-card.coming-module .module-icon {
+                width: 45px; /* Smaller icon */
+                height: 45px;
+                font-size: 1.2rem;
+            }
+            
+            .module-card.coming-module .module-status {
+                font-size: 0.6rem; /* Even smaller on mobile */
+                padding: 0.3rem 0.6rem;
+                margin-top: 0.1rem;
+            }
+
+            /* Mobile optimizations for benefit-stat cards */
+            .benefit-stat {
+                padding: 2rem 1.5rem; /* Reduced padding on mobile */
+                backdrop-filter: blur(15px); /* Lighter blur on mobile */
+            }
+            
+            .benefit-stat .stat-number {
+                font-size: clamp(1.8rem, 8vw, 2.5rem); /* Smaller on mobile */
+                margin-bottom: 0.6rem;
+            }
+            
+            .benefit-stat .stat-label {
+                font-size: clamp(0.85rem, 4vw, 1rem); /* Smaller on mobile */
+                letter-spacing: 0.3px;
+            }
+            
+            .benefit-stat:hover {
+                transform: translateY(-4px) scale(1.01); /* Reduced mobile hover */
             }
 
             /* SECTION HEADERS */
@@ -4401,9 +4449,14 @@
         .dashboard-info h3 {
             font-size: clamp(1.2rem, 3vw, 1.6rem);
             font-weight: 700;
-            color: var(--text-primary);
+            color: #ffffff;
             margin-bottom: 0.3rem;
             line-height: 1.2;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6, #1e40af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
         }
 
         .dashboard-info p {
@@ -4417,19 +4470,28 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            color: #b0bec5;
+            padding: 0.5rem 1rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            color: #22c55e;
+            font-size: 0.85rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
         }
 
         .status-indicator {
-            width: 12px;
-            height: 12px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
-            background: #4caf50;
+            background: #22c55e;
             animation: pulse 2s infinite;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
         }
 
-        .status-indicator.online {
-            background: #4caf50;
+        .status-indicator.active {
+            background: #22c55e;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.7);
         }
 
         @keyframes pulse {
@@ -4593,36 +4655,86 @@
             .portal-concept .module-status {
                 backdrop-filter: blur(3px) !important;
             }
+            
+            /* Desktop specific coming module optimizations */
+            .module-card.coming-module {
+                padding: 2rem 1.8rem; /* More padding on desktop */
+                gap: 1.5rem; /* Larger gap */
+                min-height: 90px; /* Taller minimum height */
+            }
+            
+            .module-card.coming-module .module-icon {
+                width: 55px; /* Larger icon on desktop */
+                height: 55px;
+                font-size: 1.5rem;
+            }
+            
+            .module-card.coming-module .module-status {
+                font-size: 0.7rem; /* Larger text on desktop */
+                padding: 0.4rem 0.8rem;
+                margin-top: 0.3rem;
+                max-width: 60px; /* Prevent overflow */
+                text-align: center;
+                background: linear-gradient(135deg, rgba(251, 191, 36, 0.3) 0%, rgba(251, 191, 36, 0.15) 100%) !important;
+                color: #fbbf24 !important;
+                border: 1px solid rgba(251, 191, 36, 0.5) !important;
+                box-shadow: 0 4px 15px rgba(251, 191, 36, 0.2) !important;
+                backdrop-filter: blur(10px) !important;
+            }
+            
+            /* Year-specific colors for desktop */
+            .module-card.coming-module .module-status.year-2025 {
+                background: linear-gradient(135deg, rgba(34, 197, 94, 0.3) 0%, rgba(34, 197, 94, 0.15) 100%) !important;
+                color: #22c55e !important;
+                border: 1px solid rgba(34, 197, 94, 0.5) !important;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2) !important;
+            }
+            
+            .module-card.coming-module .module-status.year-2026 {
+                background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.15) 100%) !important;
+                color: #3b82f6 !important;
+                border: 1px solid rgba(59, 130, 246, 0.5) !important;
+                box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2) !important;
+            }
+            
+            .module-card.coming-module .module-status.year-2027 {
+                background: linear-gradient(135deg, rgba(168, 85, 247, 0.3) 0%, rgba(168, 85, 247, 0.15) 100%) !important;
+                color: #a855f7 !important;
+                border: 1px solid rgba(168, 85, 247, 0.5) !important;
+                box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2) !important;
+            }
         }
 
         .benefit-stat {
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem 2rem;
             background: 
-                linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%),
-                rgba(15, 23, 42, 0.3);
-            backdrop-filter: blur(50px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+                linear-gradient(135deg, rgba(96, 165, 250, 0.08) 0%, rgba(30, 58, 138, 0.05) 50%, rgba(15, 23, 42, 0.8) 100%),
+                radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(96, 165, 250, 0.2);
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+                0 10px 40px rgba(0, 0, 0, 0.25),
+                0 0 30px rgba(96, 165, 250, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
             position: relative;
             overflow: hidden;
         }
 
         .benefit-stat:hover {
-            transform: translateY(-10px) scale(1.02);
+            transform: translateY(-8px) scale(1.02);
             box-shadow: 
                 0 20px 60px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(96, 165, 250, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(70px);
+                0 0 50px rgba(96, 165, 250, 0.2),
+                0 0 80px rgba(30, 58, 138, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border-color: rgba(96, 165, 250, 0.4);
+            backdrop-filter: blur(25px);
             background: 
-                linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%),
-                rgba(15, 23, 42, 0.4);
+                linear-gradient(135deg, rgba(96, 165, 250, 0.12) 0%, rgba(30, 58, 138, 0.08) 50%, rgba(15, 23, 42, 0.85) 100%),
+                radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.15) 0%, transparent 70%);
         }
 
         .benefit-stat::before {
@@ -4632,33 +4744,55 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: var(--gradient-primary);
+            background: 
+                linear-gradient(45deg, transparent 30%, rgba(96, 165, 250, 0.05) 50%, transparent 70%);
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.3s ease;
         }
 
         .benefit-stat:hover::before {
-            opacity: 0.03;
+            opacity: 1;
+        }
+
+        /* Add shimmer effect */
+        .benefit-stat::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg) translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .benefit-stat:hover::after {
+            transform: rotate(45deg) translateX(100%);
         }
 
         .benefit-stat .stat-number {
-            font-size: clamp(2rem, 5vw, 2.8rem);
-            font-weight: 800;
-            background: var(--gradient-primary);
+            font-size: clamp(2.2rem, 5vw, 3rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, #60a5fa, #3b82f6, #1e40af);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 0.8rem;
             position: relative;
             z-index: 2;
+            text-shadow: 0 0 30px rgba(96, 165, 250, 0.3);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
         }
 
         .benefit-stat .stat-label {
-            color: var(--text-tertiary);
-            font-size: clamp(0.9rem, 2vw, 1.1rem);
-            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.95rem, 2vw, 1.15rem);
+            font-weight: 600;
             position: relative;
             z-index: 2;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
@@ -4941,15 +5075,19 @@
             </p>
             
             <div class="portal-dashboard animate-on-scroll">
-                <!-- HERO SECTION - BIG BOLD NUMBERS FIRST -->
+                <!-- DASHBOARD OVERVIEW - LIVE STATUS -->
                 <div class="dashboard-header">
                     <div class="dashboard-info">
-                        <h3>Portaalin Konsepti 2026-2027</h3>
-                        <p>Yhtenäinen alusta kaikille teollisuussovelluksille</p>
+                        <h3>Live Dashboard</h3>
+                        <p>Reaaliaikainen näkymä tulevaisuuden alustaan</p>
+                    </div>
+                    <div class="dashboard-status">
+                        <div class="status-indicator active"></div>
+                        <span>Kehitys käynnissä</span>
                     </div>
                 </div>
 
-                <!-- KEY STATS FIRST - F-PATTERN LAYOUT -->
+                <!-- KEY METRICS - LIVE DATA -->
                 <div class="portal-benefits animate-on-scroll">
                     <div class="benefit-stat">
                         <div class="stat-number">1</div>
@@ -5004,7 +5142,7 @@
                             <h3>Laadunhallinta</h3>
                             <p>ISO-standardit ja laadunvarmistus</p>
                         </div>
-                        <div class="module-status">2025</div>
+                        <div class="module-status year-2025">2025</div>
                     </div>
                     
                     <div class="module-card coming-module animate-stagger">
@@ -5015,7 +5153,7 @@
                             <h3>Energianhallinta</h3>
                             <p>Energiatehokkuus ja kulutusseuranta</p>
                         </div>
-                        <div class="module-status">2026</div>
+                        <div class="module-status year-2026">2026</div>
                     </div>
                     
                     <div class="module-card coming-module animate-stagger">
@@ -5026,7 +5164,7 @@
                             <h3>Kunnossapito</h3>
                             <p>Ennakoiva huolto ja käyttöomaisuus</p>
                         </div>
-                        <div class="module-status">2026</div>
+                        <div class="module-status year-2026">2026</div>
                     </div>
                     
                     <div class="module-card coming-module animate-stagger">
@@ -5037,7 +5175,7 @@
                             <h3>Vaatimustenmukaisuus</h3>
                             <p>Säädösten seuranta ja raportointi</p>
                         </div>
-                        <div class="module-status">2026</div>
+                        <div class="module-status year-2026">2026</div>
                     </div>
                     
                     <div class="module-card coming-module animate-stagger">
@@ -5048,7 +5186,7 @@
                             <h3>Tietosuojahallinta</h3>
                             <p>GDPR ja henkilötietojen hallinta</p>
                         </div>
-                        <div class="module-status">2027</div>
+                        <div class="module-status year-2027">2027</div>
                     </div>
                     
                     <div class="module-card coming-module animate-stagger">
@@ -5059,7 +5197,7 @@
                             <h3>Henkilöstöresurssit</h3>
                             <p>HR-hallinta ja osaamisen kehitys</p>
                         </div>
-                        <div class="module-status">2027</div>
+                        <div class="module-status year-2027">2027</div>
                     </div>
                 </div>
             </div>
