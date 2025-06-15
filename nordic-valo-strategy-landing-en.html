@@ -3443,11 +3443,30 @@
             }
 
             /* Roadmap mobile */
+            .roadmap-timeline {
+                position: relative;
+            }
+
+            .roadmap-timeline::before {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 100px;
+                bottom: 100px;
+                width: 3px;
+                background: linear-gradient(180deg, var(--secondary-blue), var(--accent-blue));
+                border-radius: 2px;
+                transform: translateX(-50%);
+                z-index: 1;
+                box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+            }
+
             .roadmap-item {
                 flex-direction: column;
                 text-align: center;
                 align-items: center;
                 margin-bottom: 2rem;
+                position: relative;
             }
 
             .roadmap-item::before {
@@ -4558,6 +4577,8 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            width: 100%;
+            max-width: 100%;
         }
 
         .accordion-section {
@@ -4565,8 +4586,23 @@
             border-radius: 20px;
             border: 1px solid rgba(96, 165, 250, 0.15);
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
             position: relative;
+            will-change: auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* Simplified mobile-friendly accordion styling */
+        @media (max-width: 768px) {
+            .accordion-section {
+                border-radius: 12px;
+                transition: none;
+            }
+            
+            .accordion-section::before {
+                display: none;
+            }
         }
 
         .accordion-section::before {
@@ -4578,12 +4614,17 @@
             height: 3px;
             background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.6), transparent);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.2s ease;
         }
 
-        .accordion-section.active::before,
-        .accordion-section:hover::before {
+        .accordion-section.active::before {
             opacity: 1;
+        }
+
+        @media (min-width: 769px) {
+            .accordion-section:hover::before {
+                opacity: 1;
+            }
         }
 
         .accordion-header {
@@ -4592,24 +4633,35 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: all 0.3s ease;
+            transition: background-color 0.2s ease;
             position: relative;
-            overflow: hidden;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
-        .accordion-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.05), transparent);
-            transition: left 0.6s ease;
+        /* Mobile optimization */
+        @media (max-width: 768px) {
+            .accordion-header {
+                padding: 1rem 1.5rem;
+            }
         }
 
-        .accordion-section:hover .accordion-header::before {
-            left: 100%;
+        /* Remove expensive hover effects on mobile */
+        @media (min-width: 769px) {
+            .accordion-header::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.05), transparent);
+                transition: left 0.4s ease;
+            }
+
+            .accordion-section:hover .accordion-header::before {
+                left: 100%;
+            }
         }
 
         .accordion-title {
@@ -4731,14 +4783,26 @@
         .accordion-content {
             max-height: 0;
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
             opacity: 0;
+            transform: translateZ(0);
+            will-change: max-height;
         }
 
         .accordion-section.active .accordion-content {
-            max-height: 2000px;
             opacity: 1;
             padding-bottom: 2rem;
+        }
+
+        /* Mobile optimization for accordion content */
+        @media (max-width: 768px) {
+            .accordion-content {
+                transition: max-height 0.25s ease-out, opacity 0.25s ease-out;
+            }
+            
+            .accordion-section.active .accordion-content {
+                transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            }
         }
 
         .modules-showcase {
@@ -4746,6 +4810,12 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            width: 100%;
+        }
+
+        .module-item {
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .module-item {
@@ -6200,50 +6270,89 @@
 
         // Premium Portal Accordion Functionality
         function initPortalAccordion() {
-            const accordionSections = document.querySelectorAll('.accordion-section');
+            const accordionSections = document.querySelectorAll('.portal-accordion .accordion-section');
             
-            accordionSections.forEach(section => {
+            console.log('Initializing accordion with sections:', accordionSections.length);
+            
+            accordionSections.forEach((section, index) => {
                 const header = section.querySelector('.accordion-header');
+                if (!header) return;
                 
-                header.addEventListener('click', () => {
-                    const isActive = section.classList.contains('active');
+                console.log(`Setting up section ${index}:`, section);
+                
+                // Remove any existing listeners to prevent duplicates
+                header.replaceWith(header.cloneNode(true));
+                const newHeader = section.querySelector('.accordion-header');
+                
+                newHeader.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    console.log('Accordion clicked:', section);
+                    
+                    const isCurrentlyActive = section.classList.contains('active');
                     
                     // Close all sections first
-                    accordionSections.forEach(s => s.classList.remove('active'));
+                    accordionSections.forEach(s => {
+                        s.classList.remove('active');
+                        const content = s.querySelector('.accordion-content');
+                        if (content) {
+                            content.style.maxHeight = '0px';
+                        }
+                    });
                     
                     // Open clicked section if it wasn't active
-                    if (!isActive) {
+                    if (!isCurrentlyActive) {
                         section.classList.add('active');
+                        const content = section.querySelector('.accordion-content');
+                        if (content) {
+                            // Calculate actual content height
+                            content.style.maxHeight = 'none';
+                            const scrollHeight = content.scrollHeight;
+                            content.style.maxHeight = '0px';
+                            
+                            // Trigger reflow and animate
+                            setTimeout(() => {
+                                content.style.maxHeight = scrollHeight + 'px';
+                            }, 10);
+                        }
                         
                         // Add stagger animation to module items
                         const moduleItems = section.querySelectorAll('.module-item');
-                        moduleItems.forEach((item, index) => {
-                            item.style.animationDelay = `${index * 0.1}s`;
-                            item.classList.add('animate-slide-in');
+                        moduleItems.forEach((item, itemIndex) => {
+                            item.style.animationDelay = `${itemIndex * 0.05}s`;
+                            item.classList.remove('animate-slide-in');
+                            setTimeout(() => {
+                                item.classList.add('animate-slide-in');
+                            }, 50);
                         });
                     }
                 });
             });
             
             // Add CSS for slide-in animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes slideInUp {
-                    from {
+            if (!document.getElementById('accordion-animations')) {
+                const style = document.createElement('style');
+                style.id = 'accordion-animations';
+                style.textContent = `
+                    @keyframes slideInUp {
+                        from {
+                            opacity: 0;
+                            transform: translateY(20px);
+                        }
+                        to {
+                            opacity: 1;
+                            transform: translateY(0);
+                        }
+                    }
+                    
+                    .animate-slide-in {
+                        animation: slideInUp 0.3s ease-out forwards;
                         opacity: 0;
-                        transform: translateY(20px);
                     }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-                
-                .animate-slide-in {
-                    animation: slideInUp 0.4s ease-out forwards;
-                }
-            `;
-            document.head.appendChild(style);
+                `;
+                document.head.appendChild(style);
+            }
         }
         
         // Reinitialize on window resize
