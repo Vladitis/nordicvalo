@@ -4574,12 +4574,197 @@
             letter-spacing: 0.5px;
         }
 
-        .portal-accordion {
+        .modules-accordion {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;
             width: 100%;
-            max-width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .module-accordion-item {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 16px;
+            border: 1px solid rgba(96, 165, 250, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .module-accordion-item:hover {
+            border-color: rgba(96, 165, 250, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .module-accordion-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .module-accordion-header:hover {
+            background: rgba(96, 165, 250, 0.05);
+        }
+
+        .module-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .active-icon {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .coming-icon {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+        }
+
+        .module-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .module-info h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .module-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .active-badge {
+            background: linear-gradient(135deg, #10b981, #34d399);
+            color: white;
+        }
+
+        .coming-badge {
+            background: linear-gradient(135deg, #f59e0b, #fbbf24);
+            color: white;
+        }
+
+        .status-text {
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+        }
+
+        .module-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            background: rgba(15, 23, 42, 0.4);
+        }
+
+        .module-accordion-item.active .module-accordion-content {
+            padding: 1.5rem;
+        }
+
+        .module-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .module-description p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .module-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(96, 165, 250, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(96, 165, 250, 0.1);
+        }
+
+        .feature-item i {
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+            width: 16px;
+            flex-shrink: 0;
+        }
+
+        .feature-item span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .modules-accordion {
+                gap: 0.75rem;
+            }
+
+            .module-accordion-header {
+                padding: 1rem;
+                gap: 0.75rem;
+            }
+
+            .module-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+
+            .module-info h4 {
+                font-size: 1.1rem;
+            }
+
+            .module-accordion-item.active .module-accordion-content {
+                padding: 1rem;
+            }
+
+            .module-features {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .feature-item {
+                padding: 0.4rem;
+            }
+
+            .feature-item span {
+                font-size: 0.85rem;
+            }
         }
 
         .accordion-section {
@@ -5306,8 +5491,8 @@
                     </div>
                 </div>
 
-                <!-- PREMIUM ACCORDION SECTIONS -->
-                <div class="portal-accordion">
+                <!-- MODUULIEN ACCORDION LISTA -->
+                <div class="modules-accordion">
                     <!-- ACTIVE MODULES SECTION -->
                     <div class="accordion-section active" data-section="active">
                         <div class="accordion-header">
@@ -5345,23 +5530,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="module-item premium-active">
-                                    <div class="module-icon">
-                                        <i class="fas fa-leaf"></i>
-                                    </div>
-                                    <div class="module-details">
-                                        <h4>Ympäristötarkkailu</h4>
-                                        <p>ESG-raportointi ja ympäristövalvonta</p>
-                                        <div class="module-features">
-                                            <span class="feature-tag">ESG-mittarit</span>
-                                            <span class="feature-tag">Päästöseuranta</span>
-                                            <span class="feature-tag">Compliance</span>
-                                        </div>
-                                    </div>
-                                    <div class="module-status-indicator active-status">
-                                        <i class="fas fa-check-circle"></i>
-                                    </div>
-                                </div>
+
                                 
                                 <div class="module-item premium-active">
                                     <div class="module-icon">
@@ -5403,6 +5572,22 @@
                         </div>
                         <div class="accordion-content">
                             <div class="modules-showcase">
+                                <div class="module-item premium-coming">
+                                    <div class="module-icon">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                    <div class="module-details">
+                                        <h4>Ympäristötarkkailu</h4>
+                                        <p>ESG-raportointi ja ympäristövalvonta</p>
+                                        <div class="module-features">
+                                            <span class="feature-tag">ESG-mittarit</span>
+                                            <span class="feature-tag">Päästöseuranta</span>
+                                            <span class="feature-tag">Compliance</span>
+                                        </div>
+                                    </div>
+                                    <div class="module-timeline">2025</div>
+                                </div>
+
                                 <div class="module-item premium-coming">
                                     <div class="module-icon">
                                         <i class="fas fa-star"></i>
@@ -6269,62 +6454,69 @@
             initPortalAccordion();
         });
 
-        // Premium Portal Accordion Functionality
+        // Moduuli Accordion Toiminnallisuus
         function initPortalAccordion() {
-            const accordionSections = document.querySelectorAll('.portal-accordion .accordion-section');
+            const accordionItems = document.querySelectorAll('.module-accordion-item');
             
-            console.log('Initializing accordion with sections:', accordionSections.length);
+            console.log('Initializing module accordion with items:', accordionItems.length);
             
-            accordionSections.forEach((section, index) => {
-                const header = section.querySelector('.accordion-header');
+            accordionItems.forEach((item, index) => {
+                const header = item.querySelector('.module-accordion-header');
                 if (!header) return;
                 
-                console.log(`Setting up section ${index}:`, section);
+                console.log(`Setting up module ${index}:`, item);
                 
                 // Remove any existing listeners to prevent duplicates
-                header.replaceWith(header.cloneNode(true));
-                const newHeader = section.querySelector('.accordion-header');
+                const newHeader = header.cloneNode(true);
+                header.parentNode.replaceChild(newHeader, header);
                 
                 newHeader.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     
-                    console.log('Accordion clicked:', section);
+                    console.log('Module accordion clicked:', item);
                     
-                    const isCurrentlyActive = section.classList.contains('active');
+                    const isCurrentlyActive = item.classList.contains('active');
+                    const content = item.querySelector('.module-accordion-content');
                     
-                    // Close all sections first
-                    accordionSections.forEach(s => {
-                        s.classList.remove('active');
-                        const content = s.querySelector('.accordion-content');
-                        if (content) {
-                            content.style.maxHeight = '0px';
-                        }
-                    });
+                    if (!content) return;
                     
-                    // Open clicked section if it wasn't active
-                    if (!isCurrentlyActive) {
-                        section.classList.add('active');
-                        const content = section.querySelector('.accordion-content');
-                        if (content) {
-                            // Calculate actual content height
-                            content.style.maxHeight = 'none';
-                            const scrollHeight = content.scrollHeight;
-                            content.style.maxHeight = '0px';
-                            
-                            // Trigger reflow and animate
-                            setTimeout(() => {
-                                content.style.maxHeight = scrollHeight + 'px';
-                            }, 10);
-                        }
+                    if (isCurrentlyActive) {
+                        // Close current item
+                        item.classList.remove('active');
+                        content.style.maxHeight = '0px';
+                    } else {
+                        // Close all other items first
+                        accordionItems.forEach(otherItem => {
+                            if (otherItem !== item) {
+                                otherItem.classList.remove('active');
+                                const otherContent = otherItem.querySelector('.module-accordion-content');
+                                if (otherContent) {
+                                    otherContent.style.maxHeight = '0px';
+                                }
+                            }
+                        });
                         
-                        // Add stagger animation to module items
-                        const moduleItems = section.querySelectorAll('.module-item');
-                        moduleItems.forEach((item, itemIndex) => {
-                            item.style.animationDelay = `${itemIndex * 0.05}s`;
-                            item.classList.remove('animate-slide-in');
+                        // Open clicked item
+                        item.classList.add('active');
+                        
+                        // Calculate actual content height
+                        content.style.maxHeight = 'none';
+                        const scrollHeight = content.scrollHeight;
+                        content.style.maxHeight = '0px';
+                        
+                        // Trigger reflow and animate
+                        setTimeout(() => {
+                            content.style.maxHeight = scrollHeight + 'px';
+                        }, 10);
+                        
+                        // Add stagger animation to feature items
+                        const featureItems = content.querySelectorAll('.feature-item');
+                        featureItems.forEach((featureItem, featureIndex) => {
+                            featureItem.style.animationDelay = `${featureIndex * 0.03}s`;
+                            featureItem.classList.remove('animate-slide-in');
                             setTimeout(() => {
-                                item.classList.add('animate-slide-in');
+                                featureItem.classList.add('animate-slide-in');
                             }, 50);
                         });
                     }
@@ -6339,7 +6531,7 @@
                     @keyframes slideInUp {
                         from {
                             opacity: 0;
-                            transform: translateY(20px);
+                            transform: translateY(15px);
                         }
                         to {
                             opacity: 1;
@@ -6348,7 +6540,7 @@
                     }
                     
                     .animate-slide-in {
-                        animation: slideInUp 0.3s ease-out forwards;
+                        animation: slideInUp 0.25s ease-out forwards;
                         opacity: 0;
                     }
                 `;
