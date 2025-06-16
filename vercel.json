@@ -1,0 +1,68 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/nordic-valo-strategy-landing.html"
+    },
+    {
+      "source": "/fi",
+      "destination": "/nordic-valo-strategy-landing.html"
+    },
+    {
+      "source": "/en",
+      "destination": "/nordic-valo-strategy-landing-en.html"
+    },
+    {
+      "source": "/tietosuoja",
+      "destination": "/tietosuojaseloste.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/tietosuojaseloste.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/fi",
+      "permanent": true
+    },
+    {
+      "source": "/nordic-valo-strategy-landing.html",
+      "destination": "/fi",
+      "permanent": true
+    },
+    {
+      "source": "/nordic-valo-strategy-landing-en.html",
+      "destination": "/en",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ]
+} 

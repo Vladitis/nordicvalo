@@ -4831,9 +4831,9 @@
                 <li><a href="#pricing">Hinnoittelu</a></li>
                 <li><a href="#contact">Yhteystiedot</a></li>
                 <li class="language-switcher">
-                    <a href="nordic-valo-strategy-landing.html" class="lang-active">FI</a>
+                    <a href="/fi" class="lang-active">FI</a>
                     <span>|</span>
-                    <a href="nordic-valo-strategy-landing-en.html">EN</a>
+                    <a href="/en">EN</a>
                 </li>
             </ul>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -4855,8 +4855,8 @@
             <li><a href="#pricing" class="mobile-menu-link">Hinnoittelu</a></li>
             <li><a href="#contact" class="mobile-menu-link">Yhteystiedot</a></li>
             <li class="mobile-language-switcher">
-                <a href="nordic-valo-strategy-landing.html" class="lang-active">Suomi</a>
-                <a href="nordic-valo-strategy-landing-en.html">English</a>
+                <a href="/fi" class="lang-active">Suomi</a>
+                <a href="/en">English</a>
             </li>
         </ul>
     </div>
@@ -5318,15 +5318,15 @@
                 
                 <form class="contact-form animate-on-scroll">
                     <div class="form-group">
-                        <input type="text" placeholder="Nimi" required>
-                        <input type="email" placeholder="Sähköposti" required>
+                        <input type="text" name="name" placeholder="Nimi" required>
+                        <input type="email" name="email" placeholder="Sähköposti" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Yritys" required>
-                        <input type="tel" placeholder="Puhelin">
+                        <input type="text" name="company" placeholder="Yritys" required>
+                        <input type="tel" name="phone" placeholder="Puhelin">
                     </div>
                     <div class="form-group full">
-                        <textarea placeholder="Viesti" required></textarea>
+                        <textarea name="message" placeholder="Viesti" required></textarea>
                     </div>
                     <button type="submit" class="cta-button">Lähetä Viesti</button>
                 </form>
@@ -5362,7 +5362,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 Nordic Valo | Kaikki oikeudet pidätetään</p>
+                <p>&copy; 2025 Nordic Valo | Kaikki oikeudet pidätetään | <a href="/tietosuoja">Tietosuojaseloste</a></p>
             </div>
         </div>
     </footer>
@@ -5591,21 +5591,59 @@
             statsObserver.observe(statsSection);
         }
 
-        // Form Submission
+        // EmailJS Form Submission
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Show success message
             const button = this.querySelector('button');
             const originalText = button.textContent;
-            button.textContent = 'Kiitos viestistäsi!';
-            button.style.background = 'linear-gradient(135deg, #4caf50, #8bc34a)';
             
-            setTimeout(() => {
-                button.textContent = originalText;
-                button.style.background = 'linear-gradient(135deg, var(--primary-blue), var(--secondary-blue))';
-                this.reset();
-            }, 3000);
+            // Show loading state
+            button.textContent = 'Lähetetään...';
+            button.disabled = true;
+            
+            // Get form data
+            const formData = new FormData(this);
+            const templateParams = {
+                from_name: formData.get('name'),
+                from_email: formData.get('email'),
+                company: formData.get('company'),
+                phone: formData.get('phone'),
+                message: formData.get('message'),
+                to_email: 'info@nordic-valo.com' // Vastaanottajan sähköposti
+            };
+            
+            // Send email using EmailJS
+            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Show success message
+                    button.textContent = 'Viesti lähetetty! ✓';
+                    button.style.background = 'linear-gradient(135deg, #4caf50, #8bc34a)';
+                    
+                    // Reset form
+                    document.querySelector('.contact-form').reset();
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.background = 'linear-gradient(135deg, var(--primary-blue), var(--secondary-blue))';
+                        button.disabled = false;
+                    }, 3000);
+                    
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    
+                    // Show error message
+                    button.textContent = 'Virhe lähetyksessä. Yritä uudelleen.';
+                    button.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
+                    
+                    setTimeout(() => {
+                        button.textContent = originalText;
+                        button.style.background = 'linear-gradient(135deg, var(--primary-blue), var(--secondary-blue))';
+                        button.disabled = false;
+                    }, 3000);
+                });
         });
 
         // Removed problematic parallax effect to fix section transitions
@@ -5753,6 +5791,15 @@
                 ticking = true;
             }
         });
+    </script>
+
+    <!-- EmailJS Script -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            // Korvaa YOUR_PUBLIC_KEY omalla EmailJS public keyllä
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
     </script>
 </body>
 </html> 
