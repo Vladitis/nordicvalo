@@ -2907,6 +2907,55 @@
             color: #b0bec5;
         }
 
+        .footer-bottom .privacy-links {
+            display: inline-flex;
+            gap: 1rem;
+            margin-left: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-bottom .privacy-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%);
+            border: 1px solid rgba(96, 165, 250, 0.2);
+            border-radius: 6px;
+            color: #60a5fa;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-bottom .privacy-link:hover {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.2) 0%, rgba(59, 130, 246, 0.2) 100%);
+            border-color: rgba(96, 165, 250, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(96, 165, 250, 0.2);
+            color: #93c5fd;
+        }
+
+        .footer-bottom .privacy-link::before {
+            content: "🔒";
+            margin-right: 0.4rem;
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-bottom .privacy-links {
+                margin-left: 0;
+                margin-top: 1rem;
+                gap: 0.5rem;
+            }
+            
+            .footer-bottom .privacy-link {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
         /* Optimized Mobile Experience - Performance First */
         @media (max-width: 768px) {
             /* Disable heavy animations and effects on mobile */
@@ -5362,7 +5411,12 @@
             </div>
             
             <div class="footer-bottom">
-                <p>&copy; 2025 Nordic Valo | Kaikki oikeudet pidätetään | <a href="/tietosuoja">Tietosuojaseloste</a></p>
+                <p>
+                    &copy; 2025 Nordic Valo | Kaikki oikeudet pidätetään
+                    <span class="privacy-links">
+                        <a href="/tietosuoja" class="privacy-link">Tietosuojaseloste</a>
+                    </span>
+                </p>
             </div>
         </div>
     </footer>

@@ -12,10 +12,14 @@
       "source": "/en",
       "destination": "/nordic-valo-strategy-landing-en.html"
     },
-    {
-      "source": "/tietosuoja",
-      "destination": "/tietosuojaseloste.html"
-    },
+            {
+            "source": "/tietosuoja",
+            "destination": "/tietosuojaseloste.html"
+        },
+        {
+            "source": "/privacy",
+            "destination": "/privacy-policy.html"
+        },
     {
       "source": "/privacy",
       "destination": "/tietosuojaseloste.html"
