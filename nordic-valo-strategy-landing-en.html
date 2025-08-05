@@ -851,10 +851,10 @@
             backdrop-filter: blur(50px);
         }
 
-        /* ===== CONSERVATIVE DPI SCALING SOLUTION ===== */
+        /* ===== TARGETED DPI SCALING SOLUTION ===== */
         
-        /* Only activate for extreme cases: Very high DPI + small viewport */
-        @media (min-resolution: 1.75dppx) and (max-width: 1280px) {
+        /* Windows 150% DPI scaling: 1920x1080 @ 150% = 1280px viewport */
+        @media (min-resolution: 1.5dppx) and (max-width: 1280px) {
             .hero { 
                 grid-template-columns: 1fr !important;
                 grid-template-rows: auto auto !important;
