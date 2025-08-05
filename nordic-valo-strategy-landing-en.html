@@ -21,57 +21,60 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Secondary breakpoint for extreme cases */
-        @media (max-width: 1320px) and (min-width: 1051px) {
-            .hero {
-                grid-template-columns: 1fr !important;
-                grid-template-rows: auto auto !important;
-                height: auto !important;
-                min-height: 90vh !important;
-                padding: 80px 0 1rem 0 !important;
-                gap: 1.5rem !important;
-            }
-            
-            .hero-left, .hero-right {
-                padding: 1rem !important;
-                justify-content: center !important;
-            }
-            
-            .hero-content {
-                text-align: center !important;
-                max-width: 100% !important;
-            }
+        /* ===== PROFESSIONAL 2024 DPI & ZOOM SOLUTION ===== */
+        
+        /* Fluid typography that scales naturally with DPI */
+        :root {
+            --fluid-min-scale: 1rem;
+            --fluid-max-scale: 1.25rem;
+            --fluid-screen-min: 20rem;
+            --fluid-screen-max: 120rem;
         }
-
-        /* Windows DPI scaling optimization for high-DPI displays */
-        @media (min-width: 769px) and (max-width: 1300px) {
+        
+        /* Modern resolution-aware styling for all sections */
+        @media (min-resolution: 1.25dppx) {
             .section {
-                padding: 4rem 0 !important;
+                padding: clamp(3rem, 8vh, 6rem) 0;
             }
             
             .container {
-                max-width: 90% !important;
-                padding: 0 1rem !important;
+                max-width: clamp(90%, 95vw, 1200px);
+                padding: 0 clamp(1rem, 3vw, 2rem);
             }
             
             .section-title {
-                font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
+                font-size: clamp(1.8rem, 4vw + 0.5rem, 3rem);
+                line-height: 1.2;
             }
             
             .section-subtitle {
-                font-size: clamp(1rem, 2.5vw, 1.2rem) !important;
+                font-size: clamp(1rem, 2.5vw + 0.2rem, 1.4rem);
+                line-height: 1.4;
             }
             
             .solutions-grid,
             .benefits-grid {
-                grid-template-columns: 1fr !important;
-                gap: 2rem !important;
+                grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+                gap: clamp(1.5rem, 4vw, 3rem);
             }
             
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr) !important;
-                gap: 1.5rem !important;
+                grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+                gap: clamp(1rem, 3vw, 2rem);
             }
+        }
+        
+        /* JavaScript-enhanced DPI detection (will be added via script) */
+        [data-dpi-scale="high"] .hero {
+            grid-template-columns: 1fr !important;
+            grid-template-rows: auto auto !important;
+            min-height: 85vh !important;
+        }
+        
+        [data-dpi-scale="ultra"] .hero {
+            grid-template-columns: 1fr !important;
+            min-height: 80vh !important;
+            padding: clamp(40px, 5vh, 80px) 0 1rem 0 !important;
         }
 
         /* Optimized transitions - only for interactive elements */
@@ -852,8 +855,50 @@
             backdrop-filter: blur(50px);
         }
 
-        /* AGGRESSIVE FIX: High breakpoint for Windows 150% DPI (1920px @ 150% = 1280px CSS) */
-        @media (max-width: 1350px) {
+        /* ===== PROFESSIONAL DPI SCALING SOLUTION 2024 ===== */
+        
+        /* 1. Resolution-aware media queries for DPI scaling (modern approach) */
+        @media (min-resolution: 1.25dppx) and (max-width: 1400px) {
+            .hero { 
+                grid-template-columns: 1fr !important;
+                grid-template-rows: auto auto !important;
+                height: auto !important;
+                min-height: 100vh !important;
+                padding: clamp(60px, 8vh, 120px) 0 2rem 0 !important;
+                gap: clamp(1.5rem, 3vh, 3rem) !important;
+            }
+        }
+        
+        /* 2. High DPI Windows scaling specific (150%+ DPI) */
+        @media (min-resolution: 1.5dppx) {
+            .hero {
+                grid-template-columns: 1fr !important;
+                grid-template-rows: auto auto !important;
+                height: auto !important;
+                min-height: 90vh !important;
+            }
+            
+            .hero-left, .hero-right {
+                padding: clamp(1rem, 2vw, 2rem) !important;
+            }
+            
+            .hero-3d-logo {
+                width: clamp(180px, 25vw, 320px) !important;
+                max-width: 75vw !important;
+            }
+        }
+        
+        /* 3. Ultra High DPI scaling (200%+) - for 4K and ultra-high DPI displays */
+        @media (min-resolution: 2dppx) {
+            .hero {
+                grid-template-columns: 1fr !important;
+                min-height: 80vh !important;
+                padding: clamp(40px, 6vh, 100px) 0 1.5rem 0 !important;
+            }
+        }
+        
+        /* 4. Legacy fallback for older browsers without resolution support */
+        @media (max-width: 1200px) {
             .hero {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto auto;
@@ -5717,6 +5762,46 @@
         if (statsSection) {
             statsObserver.observe(statsSection);
         }
+
+        // ===== PROFESSIONAL DPI/ZOOM DETECTION SCRIPT =====
+        function initDPIDetection() {
+            const pixelRatio = window.devicePixelRatio || 1;
+            const screenWidth = window.screen.width;
+            const viewportWidth = window.innerWidth;
+            
+            // Calculate effective scaling
+            const effectiveScale = (screenWidth / viewportWidth) * pixelRatio;
+            
+            // Add data attribute for CSS targeting
+            if (effectiveScale >= 2.0) {
+                document.documentElement.setAttribute('data-dpi-scale', 'ultra');
+            } else if (effectiveScale >= 1.5) {
+                document.documentElement.setAttribute('data-dpi-scale', 'high');
+            } else if (effectiveScale >= 1.25) {
+                document.documentElement.setAttribute('data-dpi-scale', 'medium');
+            } else {
+                document.documentElement.setAttribute('data-dpi-scale', 'normal');
+            }
+            
+            // Debug info for development
+            console.log('DPI Detection:', {
+                pixelRatio,
+                screenWidth,
+                viewportWidth,
+                effectiveScale,
+                scalingLevel: document.documentElement.getAttribute('data-dpi-scale')
+            });
+        }
+        
+        // Initialize DPI detection immediately
+        initDPIDetection();
+        
+        // Re-check on window resize (zoom changes)
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(initDPIDetection, 250);
+        });
 
         // Formspree Form Submission with UX enhancements
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
