@@ -21,8 +21,8 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Additional breakpoint for Windows DPI scaling + browser zoom combinations */
-        @media (max-width: 900px) and (min-width: 769px) {
+        /* Secondary breakpoint for extreme cases */
+        @media (max-width: 1320px) and (min-width: 1051px) {
             .hero {
                 grid-template-columns: 1fr !important;
                 grid-template-rows: auto auto !important;
@@ -852,8 +852,8 @@
             backdrop-filter: blur(50px);
         }
 
-        /* Windows DPI scaling + zoom breakpoint - handles Windows 150% scaling */
-        @media (max-width: 950px) {
+        /* AGGRESSIVE FIX: High breakpoint for Windows 150% DPI (1920px @ 150% = 1280px CSS) */
+        @media (max-width: 1350px) {
             .hero {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto auto;
