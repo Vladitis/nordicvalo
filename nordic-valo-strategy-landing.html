@@ -859,31 +859,59 @@
                 grid-template-columns: 1fr !important;
                 grid-template-rows: auto auto !important;
                 height: auto !important;
-                min-height: 100vh !important;
-                padding: clamp(60px, 8vh, 120px) 0 2rem 0 !important;
-                gap: clamp(1.5rem, 3vh, 3rem) !important;
+                min-height: calc(100vh - 80px) !important; /* Account for navigation */
+                min-height: 100dvh !important; /* Modern dynamic viewport */
+                padding: clamp(40px, 6vh, 80px) 0 1rem 0 !important;
+                gap: clamp(1rem, 2vh, 2rem) !important;
             }
             
             .hero-left {
                 order: 1;
-                padding: 1rem 2rem;
-                justify-content: center;
+                padding: clamp(1rem, 3vw, 2rem) !important;
+                justify-content: center !important;
+                align-items: center !important;
+                text-align: center !important;
             }
             
             .hero-right {
                 order: 2;
-                padding: 1rem 2rem 2rem 2rem;
-                justify-content: center;
+                padding: clamp(1rem, 3vw, 2rem) !important;
+                justify-content: center !important;
+                align-items: center !important;
+                display: flex !important;
             }
             
             .hero-3d-logo {
-                width: clamp(200px, 30vw, 350px);
-                max-width: 80vw;
+                width: clamp(180px, 25vw, 300px) !important;
+                max-width: 70vw !important;
+                margin: 0 auto !important;
+                display: block !important;
             }
             
             .hero-content {
-                max-width: 600px;
-                text-align: center;
+                max-width: 100% !important;
+                text-align: center !important;
+                margin: 0 auto !important;
+                padding: 0 1rem !important;
+            }
+            
+            .hero-content h1 {
+                font-size: clamp(1.8rem, 5vw, 2.5rem) !important;
+                line-height: 1.2 !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .hero-content .subtitle {
+                font-size: clamp(0.9rem, 3vw, 1.1rem) !important;
+                line-height: 1.4 !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            .hero-value-props {
+                justify-content: center !important;
+                flex-wrap: wrap !important;
+                gap: 1rem !important;
+                margin-top: 1rem !important;
             }
         }
         
