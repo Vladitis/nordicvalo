@@ -64,18 +64,14 @@
             }
         }
         
-        /* JavaScript-enhanced DPI detection (will be added via script) */
-        [data-dpi-scale="high"] .hero {
-            grid-template-columns: 1fr !important;
-            grid-template-rows: auto auto !important;
-            min-height: 85vh !important;
-        }
-        
+        /* JavaScript-enhanced DPI detection - DISABLED until needed */
+        /* 
         [data-dpi-scale="ultra"] .hero {
             grid-template-columns: 1fr !important;
             min-height: 80vh !important;
             padding: clamp(40px, 5vh, 80px) 0 1rem 0 !important;
         }
+        */
 
         /* Optimized transitions - only for interactive elements */
         .nav-links a, .cta-button, .solution-card, .benefit-item, .pricing-card {
@@ -855,10 +851,10 @@
             backdrop-filter: blur(50px);
         }
 
-        /* ===== PROFESSIONAL DPI SCALING SOLUTION 2024 ===== */
+        /* ===== CONSERVATIVE DPI SCALING SOLUTION ===== */
         
-        /* 1. Resolution-aware media queries for DPI scaling (modern approach) */
-        @media (min-resolution: 1.25dppx) and (max-width: 1400px) {
+        /* Only activate for extreme cases: Very high DPI + small viewport */
+        @media (min-resolution: 1.75dppx) and (max-width: 1280px) {
             .hero { 
                 grid-template-columns: 1fr !important;
                 grid-template-rows: auto auto !important;
@@ -867,33 +863,27 @@
                 padding: clamp(60px, 8vh, 120px) 0 2rem 0 !important;
                 gap: clamp(1.5rem, 3vh, 3rem) !important;
             }
-        }
-        
-        /* 2. High DPI Windows scaling specific (150%+ DPI) */
-        @media (min-resolution: 1.5dppx) {
-            .hero {
-                grid-template-columns: 1fr !important;
-                grid-template-rows: auto auto !important;
-                height: auto !important;
-                min-height: 90vh !important;
+            
+            .hero-left {
+                order: 1;
+                padding: 1rem 2rem;
+                justify-content: center;
             }
             
-            .hero-left, .hero-right {
-                padding: clamp(1rem, 2vw, 2rem) !important;
+            .hero-right {
+                order: 2;
+                padding: 1rem 2rem 2rem 2rem;
+                justify-content: center;
             }
             
             .hero-3d-logo {
-                width: clamp(180px, 25vw, 320px) !important;
-                max-width: 75vw !important;
+                width: clamp(200px, 30vw, 350px);
+                max-width: 80vw;
             }
-        }
-        
-        /* 3. Ultra High DPI scaling (200%+) - for 4K and ultra-high DPI displays */
-        @media (min-resolution: 2dppx) {
-            .hero {
-                grid-template-columns: 1fr !important;
-                min-height: 80vh !important;
-                padding: clamp(40px, 6vh, 100px) 0 1.5rem 0 !important;
+            
+            .hero-content {
+                max-width: 600px;
+                text-align: center;
             }
         }
         
