@@ -4675,10 +4675,8 @@
 
         /* Portal Concept Styles - Desktop Optimized */
         .portal-concept {
-            background: 
-                radial-gradient(circle at 15% 30%, rgba(30, 58, 138, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 85% 70%, rgba(59, 130, 246, 0.04) 0%, transparent 40%),
-                linear-gradient(135deg, #000000 0%, #0a0f1c 25%, #1a1a2e 50%, #0a0f1c 75%, #000000 100%);
+            /* PERFORMANCE: Simplified background to solid color */
+            background: #0a0f1c; /* Single solid color instead of complex gradients */
             position: relative;
             overflow: hidden;
         }
@@ -4686,52 +4684,34 @@
         /* Removed animated grid background for better performance */
 
         .portal-dashboard {
-            background: 
-                linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%),
-                linear-gradient(135deg, rgba(10, 15, 28, 0.9) 0%, rgba(15, 23, 42, 0.8) 50%, rgba(5, 10, 20, 0.95) 100%);
-            backdrop-filter: blur(80px);
-            border-radius: 32px;
-            padding: 3rem;
+            /* PERFORMANCE: Simplified background without heavy gradients */
+            background: rgba(15, 23, 42, 0.95);
+            /* REMOVED: backdrop-filter blur(80px) - too heavy for scrolling */
+            border-radius: 20px; /* Simpler rounded corners */
+            padding: 2rem; /* Reduced padding */
             border: 1px solid rgba(96, 165, 250, 0.2);
             position: relative;
             z-index: 2;
-            box-shadow: 
-                0 25px 80px rgba(0, 0, 0, 0.5),
-                0 0 60px rgba(30, 58, 138, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15),
-                inset 0 0 40px rgba(30, 58, 138, 0.1);
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            /* SIMPLIFIED: Single box-shadow instead of multiple layers */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            /* REMOVED: transition: all - performance killer */
             overflow: hidden;
+            /* PERFORMANCE: Hardware acceleration */
+            will-change: transform;
         }
 
+        /* REMOVED: portal-dashboard::before - Heavy gradient overlay causing lag */
         .portal-dashboard::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 20%, rgba(30, 58, 138, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.05) 0%, transparent 70%);
-            z-index: -1;
-            opacity: 0.8;
+            display: none; /* Completely disable for performance */
         }
 
         .portal-dashboard:hover {
-            box-shadow: 
-                0 35px 100px rgba(0, 0, 0, 0.6),
-                0 0 80px rgba(30, 58, 138, 0.4),
-                0 0 120px rgba(96, 165, 250, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                inset 0 0 60px rgba(30, 58, 138, 0.15);
-            border-color: rgba(96, 165, 250, 0.3);
-            backdrop-filter: blur(100px);
-            background: 
-                linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.04) 100%),
-                linear-gradient(135deg, rgba(10, 15, 28, 0.95) 0%, rgba(15, 23, 42, 0.85) 50%, rgba(5, 10, 20, 1) 100%);
-            transform: translateY(-5px);
+            /* PERFORMANCE: Minimal hover effect only */
+            border-color: rgba(96, 165, 250, 0.4);
+            /* REMOVED: All heavy backdrop-filters and complex shadows */
+            /* REMOVED: Background changes that cause repaints */
+            transform: translateY(-2px); /* Reduced movement */
+            transition: transform 0.2s ease, border-color 0.2s ease; /* Only animate specific properties */
         }
 
         .dashboard-header {
@@ -5409,7 +5389,7 @@
                 Yhtenäinen alusta kaikille teollisuussovelluksille
             </p>
             
-            <div class="portal-dashboard animate-on-scroll">
+            <div class="portal-dashboard">
                 <!-- DASHBOARD OVERVIEW - LIVE STATUS -->
                 <div class="dashboard-header">
                     <div class="dashboard-info">
@@ -5423,7 +5403,7 @@
                 </div>
 
                 <!-- KEY METRICS - LIVE DATA -->
-                <div class="portal-benefits animate-on-scroll">
+                <div class="portal-benefits">
                     <div class="benefit-stat">
                         <div class="stat-number">1</div>
                         <div class="stat-label">Yhtenäinen alusta</div>
