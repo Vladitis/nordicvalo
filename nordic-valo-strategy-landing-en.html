@@ -5785,15 +5785,22 @@
             });
         }
 
-        // Navbar Scroll Effect
+        // PERFORMANCE: Throttled navbar scroll effect
+        let navbarTicking = false;
         window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
+            if (!navbarTicking) {
+                requestAnimationFrame(function() {
+                    const navbar = document.getElementById('navbar');
+                    if (window.scrollY > 50) {
+                        navbar.classList.add('scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled');
+                    }
+                    navbarTicking = false;
+                });
+                navbarTicking = true;
             }
-        });
+        }, { passive: true }); // Passive for better performance
 
         // Smooth Scrolling for Navigation Links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -5809,20 +5816,23 @@
             });
         });
 
-        // Scroll Animations
+        // PERFORMANCE: Optimized scroll animations - less aggressive triggering
         const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.3, // Higher threshold = less frequent triggers
+            rootMargin: '0px 0px -100px 0px' // Bigger margin = fewer triggers
         };
 
         const observer = new IntersectionObserver(function(entries) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('animated');
+                    // PERFORMANCE: Immediately unobserve after animation to reduce overhead
+                    observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
+        // PERFORMANCE: Only observe elements that still have animate-on-scroll class
         document.querySelectorAll('.animate-on-scroll').forEach(el => {
             observer.observe(el);
         });
@@ -6093,12 +6103,15 @@
             ticking = false;
         }
         
-        window.addEventListener('scroll', function() {
-            if (!ticking) {
-                requestAnimationFrame(updateScrollEffects);
-                ticking = true;
-            }
-        });
+        // PERFORMANCE: Disable scroll animations entirely for better performance
+        // window.addEventListener('scroll', function() {
+        //     if (!ticking) {
+        //         requestAnimationFrame(updateScrollEffects);
+        //         ticking = true;
+        //     }
+        // });
+        
+        // COMMENTED OUT: Heavy scroll effects disabled for smooth scrolling
     </script>
 </body>
 </html> 
