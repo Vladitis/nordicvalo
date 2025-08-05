@@ -17,8 +17,33 @@
             scroll-behavior: smooth;
         }
 
+        /* PERFORMANCE FIX: Removed global transition - was causing extreme lag */
+        /* OLD: * { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } */
+        
+        /* PERFORMANCE: GPU acceleration + smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
         * {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+        
+        /* CRITICAL: Disable scroll-triggered animations for performance */
+        .animate-on-scroll {
+            animation: none !important;
+            transform: none !important;
+            opacity: 1 !important;
+        }
+        
+        /* Selective transitions only where needed */
+        .nav-links a, .cta-button, button {
+            transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
         }
 
         /* ===== PROFESSIONAL 2024 DPI & ZOOM SOLUTION ===== */
@@ -73,9 +98,15 @@
         }
         */
 
-        /* Optimized transitions - only for interactive elements */
-        .nav-links a, .cta-button, .solution-card, .benefit-item, .pricing-card {
-            transition: all 0.3s ease;
+        /* PERFORMANCE: Disable heavy backdrop-filters on scroll elements */
+        .solution-card, .benefit-item, .pricing-card, .module-card {
+            backdrop-filter: none !important; /* Disable for better scroll performance */
+            background: rgba(15, 23, 42, 0.9) !important; /* Fallback solid background */
+        }
+        
+        /* Minimal transitions for interactive elements only */
+        .nav-links a:hover, .cta-button:hover {
+            transition: transform 0.15s ease, opacity 0.15s ease;
         }
 
         /* Performance Optimization for Older Devices */
