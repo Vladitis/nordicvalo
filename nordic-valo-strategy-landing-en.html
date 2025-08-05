@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=3.0">
     <meta name="theme-color" content="#1e3a8a">
     <title>Nordic Valo | The Future of Industry</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,6 +19,37 @@
 
         * {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Zoom optimization for older users with high zoom levels */
+        @media (min-width: 769px) and (max-width: 1400px) {
+            .section {
+                padding: 4rem 0 !important;
+            }
+            
+            .container {
+                max-width: 90% !important;
+                padding: 0 1rem !important;
+            }
+            
+            .section-title {
+                font-size: clamp(1.8rem, 4vw, 2.5rem) !important;
+            }
+            
+            .section-subtitle {
+                font-size: clamp(1rem, 2.5vw, 1.2rem) !important;
+            }
+            
+            .solutions-grid,
+            .benefits-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 1.5rem !important;
+            }
         }
 
         /* Optimized transitions - only for interactive elements */
@@ -799,7 +830,51 @@
             backdrop-filter: blur(50px);
         }
 
-        /* Responsive navigation */
+        /* Zoom-friendly responsive breakpoint for older users */
+        @media (max-width: 1200px) {
+            .hero {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto;
+                height: auto;
+                min-height: 100vh;
+                padding: 90px 0 2rem 0;
+                gap: 2rem;
+            }
+            
+            .hero-left {
+                order: 1;
+                padding: 1rem 2rem;
+                justify-content: center;
+            }
+            
+            .hero-right {
+                order: 2;
+                padding: 1rem 2rem 2rem 2rem;
+                justify-content: center;
+            }
+            
+            .hero-3d-logo {
+                width: clamp(200px, 30vw, 350px);
+                max-width: 80vw;
+            }
+            
+            .hero-content {
+                max-width: 600px;
+                text-align: center;
+            }
+            
+            .hero-value-props {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                justify-content: center;
+            }
+            
+            .value-item {
+                min-width: 100px;
+            }
+        }
+
+        /* Mobile responsive navigation */
         @media (max-width: 768px) {
             .nav-container {
                 padding: 1rem;
