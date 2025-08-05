@@ -1380,6 +1380,7 @@
             padding: 1.5rem 0;
             border-top: 1px solid rgba(96, 165, 250, 0.1);
             border-bottom: 1px solid rgba(96, 165, 250, 0.1);
+            justify-content: center; /* Center the value props */
         }
 
         .value-item {
@@ -1462,6 +1463,10 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
             margin-bottom: 2.5rem;
+            justify-content: center; /* Center the feature grid */
+            max-width: 600px; /* Limit width for better centering */
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .feature-item {
@@ -1571,6 +1576,8 @@
             display: flex;
             gap: 1rem;
             align-items: center;
+            justify-content: center; /* Center the CTA buttons */
+            flex-wrap: wrap; /* Allow wrapping on small screens */
         }
 
         .cta-button-primary {
@@ -1626,6 +1633,8 @@
             margin-top: 2rem;
             padding-top: 1.5rem;
             border-top: 1px solid rgba(96, 165, 250, 0.1);
+            justify-content: center; /* Center the trust indicators */
+            flex-wrap: wrap; /* Allow wrapping on small screens */
         }
 
         .trust-item {
