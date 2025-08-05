@@ -21,8 +21,8 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Additional zoom breakpoint for 200%+ zoom levels */
-        @media (max-width: 980px) and (min-width: 769px) {
+        /* Additional breakpoint for Windows DPI scaling + browser zoom combinations */
+        @media (max-width: 900px) and (min-width: 769px) {
             .hero {
                 grid-template-columns: 1fr !important;
                 grid-template-rows: auto auto !important;
@@ -43,8 +43,8 @@
             }
         }
 
-        /* Zoom optimization for older users with high zoom levels */
-        @media (min-width: 769px) and (max-width: 1400px) {
+        /* Windows DPI scaling optimization for high-DPI displays */
+        @media (min-width: 769px) and (max-width: 1300px) {
             .section {
                 padding: 4rem 0 !important;
             }
@@ -852,8 +852,8 @@
             backdrop-filter: blur(50px);
         }
 
-        /* Zoom-friendly responsive breakpoint for older users - handles 150-200% zoom */
-        @media (max-width: 1100px) {
+        /* Windows DPI scaling + zoom breakpoint - handles Windows 150% scaling */
+        @media (max-width: 950px) {
             .hero {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto auto;
