@@ -5341,17 +5341,17 @@
                     Interested in our solutions? Let's discuss your needs.
                 </p>
                 
-                <form class="contact-form animate-on-scroll">
+                <form class="contact-form animate-on-scroll" action="https://formspree.io/f/mnnzgdeg" method="POST">
                     <div class="form-group">
-                        <input type="text" placeholder="Name" required>
-                        <input type="email" placeholder="Email" required>
+                        <input type="text" name="name" placeholder="Name" required>
+                        <input type="email" name="email" placeholder="Email" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" placeholder="Company" required>
-                        <input type="tel" placeholder="Phone">
+                        <input type="text" name="company" placeholder="Company" required>
+                        <input type="tel" name="phone" placeholder="Phone">
                     </div>
                     <div class="form-group full">
-                        <textarea placeholder="Message" required></textarea>
+                        <textarea name="message" placeholder="Message" required></textarea>
                     </div>
                     <button type="submit" class="cta-button">Send Message</button>
                 </form>
@@ -5621,21 +5621,32 @@
             statsObserver.observe(statsSection);
         }
 
-        // Form Submission
+        // Formspree Form Submission with UX enhancements
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Show success message
             const button = this.querySelector('button');
             const originalText = button.textContent;
-            button.textContent = 'Thank you for your message!';
-            button.style.background = 'linear-gradient(135deg, #4caf50, #8bc34a)';
             
+            // Show loading state
+            button.textContent = 'Sending...';
+            button.disabled = true;
+            
+            // Form will be submitted naturally to Formspree
+            // This timeout handles the UI state after submission
             setTimeout(() => {
-                button.textContent = originalText;
-                button.style.background = 'linear-gradient(135deg, var(--primary-blue), var(--secondary-blue))';
+                // Show success message
+                button.textContent = 'Message sent! ✓';
+                button.style.background = 'linear-gradient(135deg, #4caf50, #8bc34a)';
+                
+                // Reset form
                 this.reset();
-            }, 3000);
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, var(--primary-blue), var(--secondary-blue))';
+                    button.disabled = false;
+                }, 3000);
+            }, 1000);
         });
 
         // Removed problematic parallax effect to fix section transitions

@@ -5373,7 +5373,7 @@
                     Kiinnostuitko ratkaisuistamme? Keskustellaan tarpeistasi.
                 </p>
                 
-                <form class="contact-form animate-on-scroll">
+                <form class="contact-form animate-on-scroll" action="https://formspree.io/f/mnnzgdeg" method="POST">
                     <div class="form-group">
                         <input type="text" name="name" placeholder="Nimi" required>
                         <input type="email" name="email" placeholder="Sähköposti" required>
@@ -5653,10 +5653,8 @@
             statsObserver.observe(statsSection);
         }
 
-        // EmailJS Form Submission
+        // Formspree Form Submission with UX enhancements
         document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
             const button = this.querySelector('button');
             const originalText = button.textContent;
             
@@ -5664,48 +5662,23 @@
             button.textContent = 'Lähetetään...';
             button.disabled = true;
             
-            // Get form data
-            const formData = new FormData(this);
-            const templateParams = {
-                from_name: formData.get('name'),
-                from_email: formData.get('email'),
-                company: formData.get('company'),
-                phone: formData.get('phone'),
-                message: formData.get('message'),
-                to_email: 'info@nordicvalo.com' // Vastaanottajan sähköposti
-            };
-            
-            // Send email using EmailJS
-            emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-                .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
-                    
-                    // Show success message
-                    button.textContent = 'Viesti lähetetty! ✓';
-                    button.style.background = 'linear-gradient(135deg, #4caf50, #8bc34a)';
-                    
-                    // Reset form
-                    document.querySelector('.contact-form').reset();
-                    
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                        button.style.background = 'linear-gradient(135deg, var(--primary-blue), var(--secondary-blue))';
-                        button.disabled = false;
-                    }, 3000);
-                    
-                }, function(error) {
-                    console.log('FAILED...', error);
-                    
-                    // Show error message
-                    button.textContent = 'Virhe lähetyksessä. Yritä uudelleen.';
-                    button.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
-                    
-                    setTimeout(() => {
-                        button.textContent = originalText;
-                        button.style.background = 'linear-gradient(135deg, var(--primary-blue), var(--secondary-blue))';
-                        button.disabled = false;
-                    }, 3000);
-                });
+            // Form will be submitted naturally to Formspree
+            // This timeout handles the UI state after submission
+            setTimeout(() => {
+                // Show success message
+                button.textContent = 'Viesti lähetetty! ✓';
+                button.style.background = 'linear-gradient(135deg, #4caf50, #8bc34a)';
+                
+                // Reset form
+                this.reset();
+                
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = 'linear-gradient(135deg, var(--primary-blue), var(--secondary-blue))';
+                    button.disabled = false;
+                }, 3000);
+            }, 1000);
         });
 
         // Removed problematic parallax effect to fix section transitions
@@ -5855,14 +5828,7 @@
         });
     </script>
 
-    <!-- EmailJS Script -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            // Korvaa YOUR_PUBLIC_KEY omalla EmailJS public keyllä
-            emailjs.init("YOUR_PUBLIC_KEY");
-        })();
-    </script>
+    <!-- Formspree handles email submission natively -->
 </body>
 </html> 
 </html> 
