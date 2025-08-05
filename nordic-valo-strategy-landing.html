@@ -2632,8 +2632,9 @@
             font-weight: 400;
         }
 
-        /* Pricing Section */
+        /* Pricing Section - TEMPORARILY HIDDEN */
         .pricing {
+            display: none; /* TEMPORARY: Hide pricing section */
             background: 
                 radial-gradient(circle at 15% 30%, rgba(30, 58, 138, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 85% 70%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
@@ -4877,7 +4878,7 @@
                 <li><a href="#benefits">Hyödyt</a></li>
                 <li><a href="#portal">Portaali</a></li>
                 <li><a href="#roadmap">Strategia</a></li>
-                <li><a href="#pricing">Hinnoittelu</a></li>
+                                    <!-- <li><a href="#pricing">Hinnoittelu</a></li> --> <!-- TEMPORARY: Hidden pricing link -->
                 <li><a href="#contact">Yhteystiedot</a></li>
                 <li class="language-switcher">
                     <a href="/fi" class="lang-active">FI</a>
@@ -4901,7 +4902,7 @@
             <li><a href="#benefits" class="mobile-menu-link">Hyödyt</a></li>
             <li><a href="#portal" class="mobile-menu-link">Portaali</a></li>
             <li><a href="#roadmap" class="mobile-menu-link">Strategia</a></li>
-            <li><a href="#pricing" class="mobile-menu-link">Hinnoittelu</a></li>
+                                <!-- <li><a href="#pricing" class="mobile-menu-link">Hinnoittelu</a></li> --> <!-- TEMPORARY: Hidden pricing link -->
             <li><a href="#contact" class="mobile-menu-link">Yhteystiedot</a></li>
             <li class="mobile-language-switcher">
                 <a href="/fi" class="lang-active">Suomi</a>
@@ -5049,7 +5050,7 @@
                     </div>
                     <div class="benefit-content">
                         <h4>Läpinäkyvyys</h4>
-                        <p>Ei piilokustannuksia. Selkeät paketit ja kiinteät hinnat. Budjetointi on helppoa ja ennakoitavaa.</p>
+                        <!-- <p>Ei piilokustannuksia. Selkeät paketit ja kiinteät hinnat. Budjetointi on helppoa ja ennakoitavaa.</p> --> <!-- TEMPORARY: Hidden pricing reference -->
                     </div>
                 </div>
                 
@@ -5152,37 +5153,44 @@
                     </div>
                 </div>
 
-                <!-- ACTIVE MODULES - PRIORITY FIRST -->
-                <h4 class="modules-section-header">Käytössä nyt</h4>
-                <div class="modules-grid">
-                    <div class="module-card active-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Turvasovellus</h3>
-                        <p>Riskienhallinta ja turvallisuusvalvonta</p>
-                    </div>
-                    
-                    <div class="module-card active-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <h3>Ympäristötarkkailu</h3>
-                        <p>ESG-raportointi ja ympäristövalvonta</p>
-                    </div>
-                    
-                    <div class="module-card active-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-plug"></i>
-                        </div>
-                        <h3>Integraatiot</h3>
-                        <p>API:t ja kolmannen osapuolen järjestelmät</p>
-                    </div>
-                </div>
+                <!-- All modules are now in "Tulossa" section -->
 
                 <!-- COMING SOON - COMPACT LAYOUT -->
                 <h4 class="modules-section-header">Tulossa 2025-2027</h4>
                 <div class="modules-grid">
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="module-content">
+                            <h3>Turvasovellus</h3>
+                            <p>Riskienhallinta ja turvallisuusvalvonta</p>
+                        </div>
+                        <div class="module-status year-2025">2025</div>
+                    </div>
+                    
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="module-content">
+                            <h3>Ympäristötarkkailu</h3>
+                            <p>ESG-raportointi ja ympäristövalvonta</p>
+                        </div>
+                        <div class="module-status year-2025">2025</div>
+                    </div>
+                    
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <div class="module-content">
+                            <h3>Integraatiot</h3>
+                            <p>API:t ja kolmannen osapuolen järjestelmät</p>
+                        </div>
+                        <div class="module-status year-2025">2025</div>
+                    </div>
+                    
                     <div class="module-card coming-module animate-stagger">
                         <div class="module-icon">
                             <i class="fas fa-star"></i>
@@ -5191,7 +5199,7 @@
                             <h3>Laadunhallinta</h3>
                             <p>ISO-standardit ja laadunvarmistus</p>
                         </div>
-                        <div class="module-status year-2025">2025</div>
+                        <div class="module-status year-2026">2026</div>
                     </div>
                     
                     <div class="module-card coming-module animate-stagger">
@@ -5404,9 +5412,9 @@
                 
                 <div class="footer-section">
                     <h3>Yhteystiedot</h3>
-                    <p>Email: info@nordic-valo.com</p>
-                    <p>Puh: +358 XX XXX XXXX</p>
-                    <p>Osoite: Helsinki, Suomi</p>
+                    <p>Email: info@nordicvalo.com</p>
+                <p>Puh: +358 50 1241</p>
+                                          <p>Osoite: Jyväskylä, Suomi</p>
                 </div>
             </div>
             
@@ -5664,7 +5672,7 @@
                 company: formData.get('company'),
                 phone: formData.get('phone'),
                 message: formData.get('message'),
-                to_email: 'info@nordic-valo.com' // Vastaanottajan sähköposti
+                to_email: 'info@nordicvalo.com' // Vastaanottajan sähköposti
             };
             
             // Send email using EmailJS

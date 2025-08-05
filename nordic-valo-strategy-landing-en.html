@@ -2629,8 +2629,9 @@
             font-weight: 400;
         }
 
-        /* Pricing Section */
+        /* Pricing Section - TEMPORARILY HIDDEN */
         .pricing {
+            display: none; /* TEMPORARY: Hide pricing section */
             background: 
                 radial-gradient(circle at 15% 30%, rgba(30, 58, 138, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 85% 70%, rgba(59, 130, 246, 0.08) 0%, transparent 40%),
@@ -4845,7 +4846,7 @@
                 <li><a href="#benefits">Benefits</a></li>
                 <li><a href="#portal">Portal</a></li>
                 <li><a href="#roadmap">Strategy</a></li>
-                <li><a href="#pricing">Pricing</a></li>
+                                    <!-- <li><a href="#pricing">Pricing</a></li> --> <!-- TEMPORARY: Hidden pricing link -->
                 <li><a href="#contact">Contact</a></li>
                 <li class="language-switcher">
                     <a href="/fi">FI</a>
@@ -4869,7 +4870,7 @@
             <li><a href="#benefits" class="mobile-menu-link">Benefits</a></li>
             <li><a href="#portal" class="mobile-menu-link">Portal</a></li>
             <li><a href="#roadmap" class="mobile-menu-link">Strategy</a></li>
-            <li><a href="#pricing" class="mobile-menu-link">Pricing</a></li>
+                                <!-- <li><a href="#pricing" class="mobile-menu-link">Pricing</a></li> --> <!-- TEMPORARY: Hidden pricing link -->
             <li><a href="#contact" class="mobile-menu-link">Contact</a></li>
             <li class="mobile-language-switcher">
                 <a href="/fi">Suomi</a>
@@ -4980,7 +4981,7 @@
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3>SAFETY+</h3>
-                    <p>Industrial safety management. Risk management, documentation and reports in one system. Transparent pricing without hidden costs.</p>
+                    <!-- <p>Industrial safety management. Risk management, documentation and reports in one system. Transparent pricing without hidden costs.</p> --> <!-- TEMPORARY: Hidden pricing reference -->
                 </div>
                 
                 <div class="solution-card animate-stagger">
@@ -5017,7 +5018,7 @@
                     </div>
                     <div class="benefit-content">
                         <h4>Transparency</h4>
-                        <p>No hidden costs. Clear packages and fixed prices. Budgeting is easy and predictable.</p>
+                        <!-- <p>No hidden costs. Clear packages and fixed prices. Budgeting is easy and predictable.</p> --> <!-- TEMPORARY: Hidden pricing reference -->
                     </div>
                 </div>
                 
@@ -5072,7 +5073,7 @@
                 
                 <div class="stat-item animate-on-scroll">
                     <div class="stat-number">100%</div>
-                    <div class="stat-label">Transparent pricing</div>
+                    <!-- <div class="stat-label">Transparent pricing</div> --> <!-- TEMPORARY: Hidden pricing reference -->
                 </div>
                 
                 <div class="stat-item animate-on-scroll">
@@ -5120,37 +5121,44 @@
                     </div>
                 </div>
 
-                <!-- ACTIVE MODULES - PRIORITY FIRST -->
-                <h4 class="modules-section-header">Active Now</h4>
-                <div class="modules-grid">
-                    <div class="module-card active-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3>Safety Application</h3>
-                        <p>Risk management and safety monitoring</p>
-                    </div>
-                    
-                    <div class="module-card active-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <h3>Environmental Monitoring</h3>
-                        <p>ESG reporting and environmental supervision</p>
-                    </div>
-                    
-                    <div class="module-card active-module animate-stagger">
-                        <div class="module-icon">
-                            <i class="fas fa-plug"></i>
-                        </div>
-                        <h3>Integrations</h3>
-                        <p>APIs and third-party systems</p>
-                    </div>
-                </div>
+                <!-- All modules are now in "Coming" section -->
 
                 <!-- COMING SOON - COMPACT LAYOUT -->
                 <h4 class="modules-section-header">Coming 2025-2027</h4>
                 <div class="modules-grid">
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="module-content">
+                            <h3>Safety Application</h3>
+                            <p>Risk management and safety monitoring</p>
+                        </div>
+                        <div class="module-status year-2025">2025</div>
+                    </div>
+                    
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="module-content">
+                            <h3>Environmental Monitoring</h3>
+                            <p>ESG reporting and environmental supervision</p>
+                        </div>
+                        <div class="module-status year-2025">2025</div>
+                    </div>
+                    
+                    <div class="module-card coming-module animate-stagger">
+                        <div class="module-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <div class="module-content">
+                            <h3>Integrations</h3>
+                            <p>APIs and third-party systems</p>
+                        </div>
+                        <div class="module-status year-2025">2025</div>
+                    </div>
+                    
                     <div class="module-card coming-module animate-stagger">
                         <div class="module-icon">
                             <i class="fas fa-star"></i>
@@ -5159,7 +5167,7 @@
                             <h3>Quality Management</h3>
                             <p>ISO standards and quality assurance</p>
                         </div>
-                        <div class="module-status year-2025">2025</div>
+                        <div class="module-status year-2026">2026</div>
                     </div>
                     
                     <div class="module-card coming-module animate-stagger">
@@ -5372,9 +5380,9 @@
                 
                 <div class="footer-section">
                     <h3>Contact</h3>
-                    <p>Email: info@nordic-valo.com</p>
-                    <p>Phone: +358 XX XXX XXXX</p>
-                    <p>Address: Helsinki, Finland</p>
+                    <p>Email: info@nordicvalo.com</p>
+                <p>Phone: +358 50 1241</p>
+                                          <p>Address: Jyväskylä, Finland</p>
                 </div>
             </div>
             
